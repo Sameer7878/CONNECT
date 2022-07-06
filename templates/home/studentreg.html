@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , max-scale=1.0,user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="../../static/feepay/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/footer.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/home.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/popup.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='javascript/home.js') }}"></script>
+</head>
+<header>
+    <div class="header">
+        <a href="#" class="logo" >@NBKRIST PAYMENTS</a>
+        <div class="header-right">
+            <a href="#">New Student Register</a>
+            <a href="{{ url_for('signout') }}" name="signout">Sign Out</a>
+        </div>
+    </div>
+
+</header>
+
+<body onload="myFunction()" style="margin:0;">
+<div id="loader">
+
+</div>
+<div id="container" style="display:none;">
+<div class="topnav">
+  <div class="search-container">
+    <form action="/search" method="post">
+        <label>Search</label>
+      <input type="text" placeholder="Search.." name="search" />
+        <button type="submit" class="search1"><i><img src="{{ url_for('static',filename='/images/icons8-search-30.png') }}"/></i></button>
+        <div class="header-right">
+            <a href="{{ url_for('admin') }}" class="refresh"><img src="{{ url_for('static',filename='/images/icons8-refresh-40.png') }}">Refresh</a>
+        </div>
+    </form></div>
+  </div>
+        <div class="scroll">
+            <table class="table">
+            <tr bgcolor="white">
+                <th>REQUEST ID</th>
+                <th>NAME</th>
+                <th>ROLL NO</th>
+                <th>DEPT</th>
+                <th>YEAR</th>
+                <th>ACTION</th>
+            </tr>
+                {% for data in stureg %}
+                    <form method="post"  ><tr bgcolor="#7fffd4">
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                    <td><input class="urtno" type="number"  value="{{ data[2] }}" name="rollNo" readonly/></td>
+                    <td>{{ data[3] }}</td>
+                    <td>{{ data[4] }}</td>
+                        {% if data[5]==0 %}
+                            <td><button class="btn bg-success" formaction="#" >Enter</button></td>
+                        {% else %}
+                            <td class="bg-success">Entered</td>
+                        {% endif %}
+
+                    </tr></form>
+                {% endfor %}
+            </table>
+        </div>
+</div>
+</body>
+<div class="footer-basic">
+        <footer>
+            <p class="copyright">IT Batch © 2021</p>
+        </footer>
+    </div>
+</html>

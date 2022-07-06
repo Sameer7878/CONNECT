@@ -1,0 +1,139 @@
+  
+  * {
+    box-sizing: border-box;
+  }
+   
+
+  
+ .container0 {
+	margin: auto;
+  width: 50%;
+ padding:30px;
+  background: #fff;
+  border-radius: 10px;
+
+
+    }
+ .container0 img{
+   width:200px;
+ }
+	.container0 form{
+      padding:40px;
+	text-align:center;
+
+	}
+
+    .login-body{
+		text-align:center;
+      font-family: Calibri, Helvetica, sans-serif;
+      height:50px;
+      min-height: 100vh;
+      align-items: center;
+      padding: 15px;
+      background: #73fe96;
+      background: -webkit-linear-gradient(-135deg, #73fe96, #4158d0);
+      background: -o-linear-gradient(-135deg, #73fe96, #4158d0);
+      background: -moz-linear-gradient(-135deg, #73fe96, #4158d0);
+      background: linear-gradient(-135deg, #73fe96, #4158d0);
+    }
+
+    
+    .login100-form-title {
+      font-size: 30px;
+      color: #000000;
+      text-align: center;
+      width: 100%;
+      display: block;
+
+    }
+    
+    input[type=text] {
+      border-color:#adb5bd;
+      font-size: 19px;/* Remove default borders */
+      padding: 4px 8px;
+      border-radius: 10px; /* Sadly outline does not round! therefore...*/
+    }
+    input[type=password]{
+           border-color:#adb5bd;
+      font-size: 19px;/* Remove default borders */
+      padding: 4px 8px;
+      border-radius: 10px;
+    }
+    input[type=password]:focus{
+              font-size: 21px;
+      outline: none;
+        border: none;
+         /* Remove default outline and use border or box-shadow */
+      box-shadow: 0 0 0 2px rgb(15, 144, 242);
+    }
+    input[type=text]:focus{
+      font-size: 21px;
+      outline: none;
+        border: none;
+         /* Remove default outline and use border or box-shadow */
+      box-shadow: 0 0 0 2px rgb(15, 144, 242); /* Full freedom. (works also with border-radius) */
+    }
+    .button {
+      justify-self: right;
+      border-radius: 20px;
+      background-color: rgb(15, 144, 242);
+      border: none;
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 20px;
+      padding: 20px;
+      width: 120px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin: 5px;
+    }
+    
+    .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+    
+    .button span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      transition: 0.5s;
+    }
+    
+    .button:hover span {
+      padding-right: 15px;
+    }
+    
+    .button:hover span:after {
+      opacity: 0.7;
+    }
+
+    .box {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .box div {
+      width: 100px;
+      height: 100px;
+    }
+    @media only screen and (max-width: 620px) {
+         .container0 img{
+   width:100px;
+ }
+input[type=text] {
+      border-color:#adb5bd;
+      font-size: 10px;/* Remove default borders */
+      padding: 4px 8px;
+      border-radius: 10px; /* Sadly outline does not round! therefore...*/
+    }
+    input[type=password]{
+           border-color:#adb5bd;
+      font-size: 10px;/* Remove default borders */
+      padding: 4px 8px;
+      border-radius: 10px;
+    }
+    }

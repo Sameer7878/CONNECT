@@ -1,0 +1,26 @@
+{% extends 'food/main.html' %}
+{% load static %}
+
+
+{% block customer_update %}
+<body>
+<br>
+<div class="center-column">
+    <div class="card card-body">
+        <form enctype="multipart/form-data" action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label }}
+                {{ field }}
+
+            </div>
+            {% endfor %}
+            <hr>
+            <input class="btn btn-sm btn-success" type="submit" name="submit">
+        </form>
+    </div>
+    </div>
+    </body>
+    {% endblock %}
+

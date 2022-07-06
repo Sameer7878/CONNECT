@@ -1,0 +1,26 @@
+{% extends 'food/main.html' %}
+{% load static %}
+{% block delete %}
+
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-body">
+            <p>Are you sure you want to delete {{order.customer}}'s Order?</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <a class="btn btn-sm btn-warning" href="{% url 'dashboard' %}">Cancel</a>
+                <input class="btn btn-sm btn-danger" type="submit" name="confirm">
+            </form>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+<script>alert("{{ message }}")</script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,348 @@
+body{
+	text-align:center;
+      font-family: Calibri, Helvetica, sans-serif;
+      min-height: 100vh;
+      align-items: center;
+      padding: 15px;
+        background: #ebebeb;
+
+}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+    width: 350px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+    float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.container {
+  width: 1280px;
+  max-width: 95%;
+  margin: 0 auto;
+}
+header {
+  width: 100%;
+  height: auto;
+  padding: 50px 0 30px 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+
+header .container {
+  width: 1600px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .logo h2 {
+  font-size: 1.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: tomato;
+  cursor: pointer;
+}
+
+header .logo h2 span {
+  display: inline-block;
+  width: 7px;
+  height: 12px;
+  background-color: #353F48;
+  margin-right: 3px;
+  transition: .3s;
+}
+
+header .logo h2:hover span {
+  background-color: tomato;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+header nav ul {list-style: none;}
+
+header nav ul li {display: inline-block;}
+
+header nav ul li a {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 15px;
+  padding: 0 5px 3px;
+  border-bottom: 3px solid transparent;
+  transition-duration: .5s;
+  transition-property: color, border-bottom;
+}
+
+header nav ul li a:hover {
+    text-decoration: none;
+  border-bottom: 2px solid #353F48;
+  color: #353F48;
+}
+
+header nav .cta {margin-left: 30px;}
+
+header nav .cta button:last-child {margin-left: 20px;}
+
+#container{
+
+    background-color: #fff;
+    color: black;
+    opacity: 0.8;
+    font-size: 15px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+}
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: tomato;
+}
+#pay{
+        background-color: black;
+    color: white;
+    opacity: 0.8;
+    font-size: 15px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+}
+#container2{
+    background-color: black;
+    color: white;
+    display: inline-flex;
+    margin-left: 30%;
+    text-align: center;
+    float: left;
+    font-size: 18px;
+    opacity: 0.7;
+    border-radius: 20px;
+     padding: 50px;
+}
+#container3{
+        background-color: black;
+    color: white;
+    opacity: 0.7;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 30px;
+    font-size: 16px;
+
+}
+
+.container1{
+     background-color: black;
+    color: white;
+    opacity: 0.9;
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+
+}
+h1{
+
+    color: black;
+    margin: 30px;
+    display: inline;
+    background-color: #5ce3e0;
+    opacity: 0.7;
+    border-radius: 20px;
+    padding: 10px;
+}
+.btn {
+  background-color: DodgerBlue;
+  border:none;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+    display:inline;
+    margin: 10px;
+}
+.active,.btn:hover{
+    overflow: no-display;
+    background-color: #5ce3cf;
+}
+
+.btnf {
+    font-size: 25px;
+    text-align: center;
+    padding:5px;
+}
+  .btn1 {
+        font-size: 20px;
+        font-weight: bold;
+        background-color: DodgerBlue;
+        border:none;
+        color: white;
+      padding: 15px 32px;
+      text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+.back{
+    background-color: #dddddd;
+    opacity: 0.8;
+    text-align: center;
+    font-size: 15px;
+    width: max-content;
+    text-decoration: none;
+
+    color: black;
+    font-weight: bold;
+    padding: 2px;
+    border-radius: 10px;
+}
+.back:hover{
+    text-decoration: none;
+}
+.row{
+    padding: 15px;
+}
+
+.student-profile{
+    text-align: center;
+    display: inline;
+    padding: 80px;
+    margin-left: 30px;
+
+}
+.student-profile .card {
+  border-radius: 10px;
+    display: inline-flex;
+    padding:1px;
+}
+.profile_img {
+    padding: 1px;
+}
+
+   .student-profile .card .card-header .profile_img {
+       width: 200px;
+       height: 200px;
+       object-fit: cover;
+       border: 5px solid #ccc;
+   }
+
+.student-profile .card h3 {
+  font-size: 25px;
+  font-weight: 700;
+    color: black;
+}
+.scroll{
+    text-align: center;
+}
+
+.student-profile .table th,
+.student-profile .table td {
+  font-size: 15px;
+  padding: 10px 10px;
+  color: #000;
+}
+input[type="date"] {
+     -webkit-align-items: center;
+     display: -webkit-inline-flex;
+     font-family: monospace;
+     overflow: hidden;
+    text-align: center;
+     padding: 0;
+     -webkit-padding-start: 1px;
+}
+ input[type='file']{
+     cursor: pointer;
+     width: 200px;
+     border-radius: 5px;
+
+ }
+ input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+ input[type=number] {
+     -moz-appearance: textfield;
+ }
+
+ tr{
+     padding: 10px;
+     font-weight: bold;
+
+ }
+  .search-container {
+
+       padding: 6px 10px;
+  background: #ddd;
+  font-size: 20px;
+  }
+  .search1{
+  padding:5px;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+}
+
+  button:hover {
+  background: #ccc;
+}
+ .topnav  {
+height: content-box;
+     background-color: #dddddd;
+  color: black;
+
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.refresh:hover{
+    text-decoration: none;
+}
+.urtno {
+background-color: rgba(0,0,0,0);
+border: none;
+    width: 120px;
+    outline: none;
+    font-weight: bold;
+}
+h3{
+    color: black;
+}
+p{
+    color: black;
+}
+.topnav form input[type='text']{
+    width: 500px;
+}

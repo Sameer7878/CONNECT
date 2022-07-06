@@ -1,0 +1,21 @@
+{% extends 'food/main.html' %}
+
+{% load static %}
+
+{% block update %}
+{% load crispy_forms_tags %}
+<body>
+<br>
+    <div class="center-column">
+    <div class="card card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form | crispy}}
+            <hr>
+            <input class="btn btn-success" type="submit" name="submit">
+        </form>
+    </div>
+</div>
+</body>
+
+    {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'food/main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block create %}
+
+<body>
+<br>
+<div class="center-column">
+    <div class="card card-body">
+        <form enctype="multipart/form-data" action="" method="POST">
+            {% csrf_token %}
+           
+            <div class="form-group">
+               {{orderform | crispy }}
+                {{orderitemform | crispy }}
+            </div>
+           
+            <hr>
+            <input class="btn btn-sm btn-success" type="submit" name="submit">
+        </form>
+    </div>
+</div>
+</body>
+    {% endblock %}

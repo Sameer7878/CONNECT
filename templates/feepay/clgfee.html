@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Fee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../static/feepay/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/footer.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/home.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/responsive.css')}}">
+    <script type="text/javascript" src="{{ url_for('static',filename='feepay/javascript/home.js') }}"></script>
+</head>
+<header>
+    <div class="container">
+        <div class="logo" ><h2 onclick="location.href='{{ url_for('Fee_app.index') }}'"><span></span>CONNECT PAYMENTS</h2></div>
+        <nav class="slide">
+        <ul>
+           <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
+        </ul>
+    </nav>
+    </div>
+
+</header>
+
+
+<body>
+<div id="container" style="margin-left: 35%; width: max-content;">
+     <div class="back">
+    <a href="{{ url_for('Fee_app.index') }}" ><img style="width: 20px;" src="{{ url_for('static',filename='feepay/images/icons8-back-30.png')}}" alt="">Back</a>
+    </div>
+    <button class="btn active text-center"  onclick="location.href='{{ url_for('Fee_app.college_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/univf80.png')}}"><span class="btnf"> College fee</span></button>
+
+</div>
+<div class="student-profile py-4">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-lg-4 py-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent text-center">
+            <img class="profile_img" src={{ profile_link }} alt="">
+          </div>
+        </div>
+      </div>
+            <div class="col-lg-4 m-auto">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0 ">
+            <h3 class="mb-0"><i><img src="{{ url_for('static',filename='feepay/images/info.png') }}"></i>Student Information</h3>
+          </div>
+        <form action="{{ url_for('Fee_app.pay') }}" method="post">
+        <input type="hidden" value="{{ ramount }}" name='ramount'>
+          <input type="hidden" value="College Fee" name="fee-type">
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tr>
+                  <th width="30%">Student Name</th>
+                <td width="2%">:</td>
+                <td>{{ name}}</td>
+                <th width="30%">Roll No</th>
+                <td width="2%">:</td>
+                <td>{{ rollno }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Academic Year	</th>
+                <td width="2%">:</td>
+                <td>{{ year }}</td>
+                     <th width="30%">Gender</th>
+                <td width="2%">:</td>
+                <td>{{ gender }}</td>
+              </tr>
+              <tr>
+                     <th width="30%">Class</th>
+                <td width="2%">:</td>
+                <td>{{ class1 }}</td>
+                <th width="30%">Section</th>
+                <td width="2%">:</td>
+                <td>{{ section }}</td>
+              </tr>
+            </table>
+              <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i><img src="{{ url_for('static',filename='feepay/images/fees.png') }}"></i>Fee Details</h3>
+          </div>
+              <table class="table table-bordered ">
+              <tr>
+                <th width="30%">Total Amount</th>
+                <td width="2%">:</td>
+                <td>{{ tamount}}</td>
+              </tr>
+              <tr>
+                <th width="30%">Paid Amount</th>
+                <td width="2%">:</td>
+                  {% if pamount.isdigit() %}
+                    <td>{{ pamount }}</td>
+                  {% else %}
+                  <td>{{ pamount }}<span><p style="font-size: 10px; color: #ef2f2f;">(Pending)</p></span></td>
+                  {% endif %}
+              </tr>
+              <tr>
+                  <th width="30%" style="padding: 15px"><strong>Remaining Amount</strong></th>
+                <td width="2%" style="padding: 10px">:</td>
+                <td>{{ ramount }}</td>
+              </tr>
+            </table>
+              {% if ramount==0 %}
+              <button class="btn1" style="cursor: not-allowed; background-color: #ccc;" disabled>Pay</button>
+              {% else %}
+              <button class="btn1 " onclick="(this.form)">Pay</button>
+              {% endif %}
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<div class="footer-basic">
+        <footer>
+            <div class="social">
+                <a><img src="https://img.icons8.com/fluency/48/000000/facebook-new.png"/></a>
+                <a><img src="https://img.icons8.com/color/48/000000/youtube-play.png"/></a>
+                <a><img src="https://img.icons8.com/fluency/48/000000/twitter.png"/></a>
+                <a><img src="https://img.icons8.com/color/50/000000/instagram-new.png"/></a>
+                <a><img src="https://img.icons8.com/fluency/48/000000/gmail-new.png"/></a>
+            </div>
+            <p class="copyright">IT Batch © 2021</p>
+        </footer>
+    </div>
+</html>

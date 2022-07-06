@@ -1,0 +1,92 @@
+{% extends 'food/main.html' %}
+
+{% block customer %}
+
+{% load crispy_forms_tags %}
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Customer:</h5>
+            <hr>
+            <a href="{% url 'customer_update' customer.id %}" class="btn btn-outline-info btn-sm btn-block">Update Customer</a>
+            <a href="{% url 'create_order' customer.id %}" class="btn btn-outline-info btn-sm btn-block">Place Order</a>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Contact Information</h5>
+            <hr>
+            <p>Email: {{customer.email}} </p>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Total Orders</h5>
+            <hr>
+            <h1 style="text-align: center;padding: 10px">{{orders_count}}</h1>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<div class="card">
+    <div class="card-body">
+        <div class="text-center">
+            <form method="get">
+                <div class="form-inline">
+                    {% for field in myFilter.form %}
+                    <div class="form-group">
+                        {{ field.errors }}
+                        <div class="col">
+                            {{ field.label}}
+                            {{ field }}
+                        </div>
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Date Ordered</th>
+                    <th>Payment completed?</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+                {% for order in orders  %}
+                {% for orderitem in orderitems %}
+                <tr>
+                    {% if orderitem.order.id == order.id %}
+                    <td>{{orderitem.product.name}}</td>
+                    <td>{{orderitem.product.category}}</td>
+                    
+                    <td>{{order.date_ordered}}</td>
+                    <td>{{order.complete}}</td>
+                   
+                    <td><a class="btn btn-sm btn-warning" href="{% url 'update_order' orderitem.id %}">Update</a></td>
+                    <td><a data-action = "del" class="btn btn-sm btn-danger" href="{% url 'cancel_order' order.id orderitem.id %}">Delete</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

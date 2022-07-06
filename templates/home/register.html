@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../static/feepay/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/footer.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/home.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/responsive.css')}}">
+    <script type="text/javascript" src="{{ url_for('static',filename='javascript/home.js') }}"></script>
+</head>
+<header>
+    <!--<div class="headerback">
+        <a href="#" ><img src="{{ url_for('static',filename='images/icons8-back-30.png')}}" alt="">Back</a>
+            </div>-->
+       <div class="header">
+        <a href="#" class="logo text-center" >@NBKRIST PAYMENTS</a>
+        <div class="header-right">
+            <a href="#">Login/Register</a>
+        </div>
+       </div>
+</header>
+
+<body>
+<div id="container2">
+    <p style="margin-left:30px; color:red;">{{ msg }}</p>
+    <form  action="/register" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-70">
+            <label class="font-weight-bold">Enter Full Name:</label>
+            </div>
+            <div class="col-75">
+                <input size="17" id="boxt1" type="text" name="name" placeholder="Enter name" required/></div></div>
+        <div class="row">
+            <div class="col-70">
+                <label class="font-weight-bold">Select Gender:</label>
+            </div>
+            <div class="col-75">
+                <select name="gender">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-70">
+                    <label class="font-weight-bold">Enter New Password:</label>
+                </div>
+            <div class="col-75">
+                <input size="17" id="boxt" type="password" name="password" placeholder="Enter New Password..." required/>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col-70">
+                <label class="font-weight-bold">Upload Photo</label>
+            </div>
+        <div class="col-75">
+            <input type="file" name="file" value="Select">
+        </div>
+        </div>
+        <button class="btn1"  type="submit">Submit</button>
+   </form>
+
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fee Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , max-scale=1.0,user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="../static/feepay/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/footer.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/home.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/responsive.css')}}">
+    <script type="text/javascript" src="{{ url_for('static',filename='feepay/javascript/home.js') }}"></script>
+</head>
+<header>
+    <div class="container">
+        <div class="logo" ><h2><span></span>CONNECT PAYMENTS</h2></div>
+        <nav class="slide">
+        <ul>
+           <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
+        </ul>
+    </nav>
+    </div>
+
+</header>
+
+<body>
+<div id="container" style="margin-left: 35%; width: max-content;">
+   <button class="btn" onclick="location.href='{{ url_for('home.index') }}'"><span class="btnf"> Home</span></button>
+
+</div>
+<div class="student-profile py-4">
+  <div class="container text-center">
+<div id="container">
+        <div class="status">
+            <table class="table">
+            <tr bgcolor="#f5f5f5">
+                <th>REQUEST ID</th>
+                <th>NAME</th>
+                <th>ROLL NO</th>
+                <th>AMOUNT</th>
+                <th>CATEGORY</th>
+                <th>DATE</th>
+                <th>STATUS</th>
+            </tr>
+            <tr bgcolor="#ffdead">
+                {% if status1==[] %}
+            <td></td>
+            <td></td>
+             <td></td>
+                <td><strong>NO PENDING REQUEST</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                {% endif %}
+
+
+                {% for data in status1 %}
+                    <tr bgcolor="#7fffd4">
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                    <td>{{ data[2] }}</td>
+                    <td>{{ data[3] }}</td>
+                    <td>{{ data[4] }}</td>
+                    <td>{{ data[5] }}</td>
+                        {% if data[6]==0 %}
+                        <td bgcolor="#dc143c">Pending</td>
+                        {% elif data[6]==1 %}
+                        <td bgcolor="#00fa9a">Success<br>
+                         <a href="#" >Download</a> </td>
+                        {% else %}
+                        <td bgcolor="red">Rejected</td>
+                        {% endif %}
+
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+</div></div></div>
+</body>
+<div class="footer-basic">
+        <footer>
+            <div class="social">
+                <a><img src="https://img.icons8.com/fluency/48/000000/facebook-new.png"/></a>
+                <a><img src="https://img.icons8.com/color/48/000000/youtube-play.png"/></a>
+                <a><img src="https://img.icons8.com/fluency/48/000000/twitter.png"/></a>
+                <a><img src="https://img.icons8.com/color/50/000000/instagram-new.png"/></a>
+                <a><img src="https://img.icons8.com/fluency/48/000000/gmail-new.png"/></a>
+            </div>
+            <p class="copyright">IT Batch © 2021</p>
+        </footer>
+    </div>
+</html>

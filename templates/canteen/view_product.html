@@ -1,0 +1,47 @@
+
+{% extends 'food/main.html' %}
+{% load static %}
+
+
+{% block view_product %}
+
+
+<body>
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+                {% for product in products  %}
+                <tr>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.category}}</td>
+                    <td style="max-width:20px; max-height:20px;"><img style="max-width:50%" src="{{product.ImageURL}}"></td>
+                    <td><a class="btn btn-sm btn-warning" href="{% url 'update_product' product.id %}">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_product' product.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+<script>alert("{{ message }}")</script> 
+{% endif %}
+{% endfor %}
+{% endif %}
+</body>
+{% endblock %}

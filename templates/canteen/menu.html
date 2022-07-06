@@ -1,0 +1,44 @@
+{% extends 'canteen/main.html' %}
+
+{% block content %}
+<hr>
+    <br><br>
+<section class="services" id="service">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="service-item">
+                    <a class="b" href="{{ url_for('canteen.breakfast') }}">
+                        <img src="../../static/canteen/images/breakfast.png" alt="Breakfast">
+                        <h4>Breakfast</h4>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="service-item">
+                    <a class="b" href="#">
+                        <img src="../../static/canteen/images/lunch.png" alt="Lunch">
+                        <h4>Lunch</h4>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="service-item">
+                    <a class="b" href="#">
+                        <img src="../../static/canteen/images/dinner.png" alt="Dinner">
+                        <h4>Dinner</h4>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="service-item">
+                    <a class="b" href="#">
+                        <img src="../../static/canteen/images/dessert.png" alt="Desserts">
+                        <h4>Todays Special</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,162 @@
+
+@media only screen and (max-width: 620px) {
+    .modal-content {
+    width: 100%;
+  }
+    #container {
+        text-align: center;
+        padding: 0;
+        margin-left: 5px;
+        margin-right:5px;
+    }
+    #container2{
+        padding: 10px;
+          font-size: 15px;
+          text-align: center;
+            width: max-content;
+           margin-left: 5px;
+            margin-right:5px;
+          margin-bottom: 20px;
+    }
+
+
+.header {
+    overflow: hidden;
+    background-color: #f1f1f1;
+    padding: 20px 10px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+    .header a {
+        float: none;
+        display: inline;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .header a.logo {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+
+    .header-right {
+        float: right;
+    }
+
+    .btn .btnf {
+
+        padding: 6px;
+        background-size: auto;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .btn1 {
+        padding: 10px 27px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .container{
+     background-color: black;
+    color: white;
+    opacity: 0.7;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+
+}
+
+    img {
+        width: 25px;
+
+
+    }
+    input{
+        font-size: 15px;
+    }
+
+    .footer-basic{
+        padding-bottom: 5px;
+        margin-top: 0;
+    }
+    .footer-basic .social {
+        text-align:center;
+        margin-top: 10px;
+        padding-bottom: 1px;
+}
+    .student-profile{
+        text-align: center;
+        padding: 2px;
+
+    }
+        .student-profile .card .card-header .profile_img {
+        width: 180px;
+        height: 180px;
+        border: 10px solid #ccc;
+
+
+    }
+
+    .student-profile .card-header {
+  border-radius: 10px;
+}
+
+.student-profile .card h3 {
+  font-size: 15px;
+  font-weight: 700;
+    padding: 10px;
+    color: black;
+}
+
+.student-profile .table th,
+.student-profile .table td {
+  font-size: 10px;
+    text-align: center;
+  padding:5px;
+  color: #000;
+}
+.back{
+    background-color: #dddddd;
+    opacity: 0.8;
+    text-align: center;
+    font-size: 10px;
+    margin-left: 10px;
+    width: max-content;
+    text-decoration: none;
+
+}
+h3{
+     color: black;
+}
+p{
+    color: black;
+    font-weight: bold;
+}
+#container3{
+    display:inline-table;
+    font-size: 15px;
+    padding: 30px;
+}
+
+
+ .header-right .name{
+    font-size: 10px;
+}
+
+     .scroll {
+        padding: 4px;
+        overflow: auto;
+        white-space: nowrap;
+    }
+     .scroll .table{
+         width: max-content;
+     }
+     .topnav form input[type='text']{
+    width: 200px;
+}
+     .refresh{
+         font-size: 18px;
+     }
+
+}

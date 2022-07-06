@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , max-scale=1.0,user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="../../static/feepay/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/footer.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/home.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/responsive.css')}}">
+    <script type="text/javascript" src="{{ url_for('static',filename='feepay/javascript/home.js') }}"></script>
+</head>
+<header>
+    <div class="container">
+        <div class="logo" ><h2 onclick="location.href='{{ url_for('home.index') }}'"><span></span>CONNECT PAYMENTS</h2></div>
+        <nav class="slide">
+        <ul>
+            <li><a class="name" href="#"> Hello,{{ name }} </a></li>
+           <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
+        </ul>
+    </nav>
+    </div>
+
+</header>
+<body>
+<div id="container">
+    <button class="btn" onclick="location.href='{{ url_for('Fee_app.college_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/univf80.png')}}"><span class="btnf"> College Fee</span></button>
+    <button class="btn" onclick="location.href='{{ url_for('Fee_app.bus_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/busf1.png')}}"><span class="btnf"> Bus Fee</span></button>
+    <button class="btn" onclick="location.href='{{ url_for('Fee_app.exam_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/examf.png')}}"><span class="btnf"> Exam Fee</span></button>
+    <button class="btn" onclick="location.href='{{ url_for('Fee_app.hostel_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/hostelf.png')}}"><span class="btnf"> Hostel Fee</span></button>
+    <button class="btn" onclick="location.href='{{ url_for('Fee_app.other_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/otherf.png')}}"><span class="btnf"> Others Fee</span></button>
+</div>
+</body>
+</html>

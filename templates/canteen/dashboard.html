@@ -1,0 +1,120 @@
+
+{% extends 'food/main.html' %}
+
+{% load static %}
+{% block d %}
+<br>
+
+<div class="col" class="container">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div id="b" class="card-block">
+                    <h6 class="m-b-20 r">Orders Received</h6>
+                    <h2 class="text-right r"><i class="fa fa-cart-plus f-left"></i><span>{{total_orders}}</span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20 r">Home Delivery</h6>
+                    <h2 class="text-right r"><i class="fa fa-rocket f-left"></i><span>{{delivered}}</span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20 r">Pending</h6>
+                    <h2 class="text-right r"><i class="fa fa-refresh f-left"></i><span>{{pending}}</span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20 r">Payment Completions</h6>
+                    <h2 class="text-right r"><i class="fa fa-credit-card f-left"></i><span>{{payment}}</span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+<div class="row">
+    <div class="col-sm-6 text-center">
+        <div class="card bg-secondary col-md">
+            <div class=" card card-body">
+            <a href="{% url 'add_product' %}" class="btn btn-sm btn-outline-info"><i class="fa fa-cutlery f-left"></i>ADD DISH</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 text-center">
+        <div class="card bg-secondary col-md">
+            <div class=" card card-body">
+                <a href="{% url 'view_product' %}" class="btn btn-sm btn-outline-info"><i class="fa fa-cutlery f-left"></i>VIEW DISHES</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-5">
+        <h5 style="text-align: center;">CUSTOMERS</h5>
+        <hr>
+        <div class="card card-body">
+
+            <table class="table table-sm">
+                <tr>
+                    <th></th>
+                    <th>Customer</th>
+                    <th>Email</th>
+                </tr>
+                {% for customer in customers %}
+                <tr>
+                    <td><a href="{% url 'customer' customer.id %}" class="btn btn-sm btn-info  ">View</a></td>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.email}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <h5 style="text-align: center;">ORDERS</h5>
+        <hr>
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Product</th>
+                    <th>Date Ordered</th>
+                    <th>Quantity</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+                {% for order in orders  %}
+                {% for orderitem in orderitems %}
+                <tr>
+                    {% if orderitem.order.id == order.id %}
+                    <td>{{orderitem.product}}</td>
+                    <td>{{orderitem.date_added}}</td>
+                    <td>{{orderitem.quantity}}</td>
+                    <td><a class="btn btn-sm btn-warning" href="{% url 'update_order' orderitem.id %}">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'cancel_order' orderitem.order.id orderitem.id %}">Delete</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
