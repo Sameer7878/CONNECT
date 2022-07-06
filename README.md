@@ -1,5 +1,1 @@
-# Shopping-cart
-#run the code 
-npm install
-#to start
-npm start
+connect web app
