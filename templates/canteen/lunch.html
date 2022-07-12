@@ -1,14 +1,13 @@
-{% extends 'food/main.html' %}
-{% load static %}
+{% extends 'canteen/main.html' %}
 
 {% block lunch %}
 <div class="row row1">
     {% for product in products %}
     {% if product.category == 'Lunch' %}
     <div class="col-lg-4">
-        <img class="thumbnail" src="{{product.ImageURL}}">
+        <img class="thumbnail" src="../../static/canteen/images/pexels-ella-olsson-1640777.jpg">
         <div class="box-element product">
-            <h6><strong>{{product.name}}</strong></h6>
+            <h6><strong>Lunch</strong></h6>
             <hr>
             <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
             <h4 style="display: inline-block;float:right">₹ {{product.price|floatformat:2}}</h4>

@@ -3,8 +3,6 @@
 
 {% block todayspl %}
 <div class="row row1">
-    {% for product in products %}
-    {% if product.category == 'Todayspl' %}
     <div class="col-lg-4">
         <img class="thumbnail" src="{{product.ImageURL}}">
         <div class="box-element product">
@@ -14,7 +12,5 @@
             <h4 style="display: inline-block;float:right">₹ {{product.price|floatformat:2}}</h4>
         </div>
     </div>
-    {% endif %}
-    {% endfor %}
 </div>
 {% endblock %}

@@ -13,3 +13,18 @@ def menu():
 @canteen.route('/breakfast')
 def breakfast():
     return render_template('canteen/breakfast.html')
+@canteen.route('/dinner')
+def dinner():
+    return render_template('canteen/dinner.html')
+@canteen.route('/lunch')
+def lunch():
+    return render_template('canteen/lunch.html')
+@canteen.route('/special')
+def special():
+    return render_template('canteen/todayspl.html')
+@canteen.route('/cart')
+def cart():
+    return render_template('canteen/cart.html')
+@canteen.route('/dashboard')
+def dashboard():
+    return render_template('canteen/dashboard.html')

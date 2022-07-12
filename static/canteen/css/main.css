@@ -4,13 +4,12 @@
 }
 
 body{
-	background: #ebebeb;
-		background-image: linear-gradient(to bottom right,#FDFCFB, #efaea2);
-	background-repeat: no-repeat;
-	background-size: cover;
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
+  width: 100%;
+  height: 100vh;
+  background: #ebebeb;
+	background-image: linear-gradient(to right bottom, #f3cfcf, #cec2ba);
+  position: relative;
+  	z-index: 1;
 	overflow: scroll;
 }
 a {
