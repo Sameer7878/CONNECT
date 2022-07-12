@@ -2,7 +2,7 @@
 /*google fonts*/
 
 ::selection {
-  background-color: #353F48;
+  background-color: #000000;
    color: tomato;
 }
 
@@ -23,7 +23,9 @@ body {
   position: relative;
 }
 
-h1, h2 {line-height: 1.2;}
+h1, h2 {
+  line-height: 1.2;
+}
 
 a {
   display: inline-block;

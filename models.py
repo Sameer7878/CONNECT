@@ -13,8 +13,7 @@ class student_info(db.Model):
     rollno=db
     CREATE
     TABLE
-    STUDENT_INFO(ROLLNO
-    VARCHAR(10), NAME
+    STUDENT_INFO(ROLLNO VARCHAR(10), NAME
     VARCHAR(20), ACADEMIC
     NUMBER(5), CLASS
     VARCHAR(10), SECTION
