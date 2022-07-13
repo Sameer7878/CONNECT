@@ -8,8 +8,8 @@ body{
   height: 100vh;
   background: #ebebeb;
 	background-image: linear-gradient(to right bottom, #f3cfcf, #cec2ba);
-  position: relative;
   	z-index: 1;
+	padding-top:100px;
 	overflow: scroll;
 }
 a {

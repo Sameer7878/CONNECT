@@ -1,0 +1,35 @@
+[
+  {
+    "ROWID": 29,
+    "ROLLNO": "19KB1A1244",
+    "AMOUNT": 17500,
+    "CATEGORY": "College Fee",
+    "UTR_NO": 133622296697,
+    "DATE": "2022-06-19",
+    "PROOF_LINK": "133622296697.jpeg",
+    "STATUS": 0,
+    "UDATE": "2022-06-19"
+  },
+  {
+    "ROWID": 30,
+    "ROLLNO": "19KB1A1244",
+    "AMOUNT": 8000,
+    "CATEGORY": "Bus Fee",
+    "UTR_NO": 67576567567,
+    "DATE": "2022-06-19",
+    "PROOF_LINK": "67576567567.jpeg",
+    "STATUS": 1,
+    "UDATE": "2022-06-19"
+  },
+  {
+    "ROWID": 31,
+    "ROLLNO": "19KB1A1244",
+    "AMOUNT": 17500,
+    "CATEGORY": "College Fee",
+    "UTR_NO": 657657632675,
+    "DATE": "2022-06-20",
+    "PROOF_LINK": "657657632675.jpeg",
+    "STATUS": 2,
+    "UDATE": "2022-06-20"
+  }
+]
