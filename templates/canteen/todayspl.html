@@ -12,6 +12,8 @@
             <button data-product={{item[0]}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
             <h4 style="display: inline-block;float:right">₹ {{item[3]|float}}</h4>
         </div>
-    </div>
+        </div>
+        {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

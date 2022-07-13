@@ -6,18 +6,8 @@ for( i = 0; i < updateBtns.length; i++)
         var productId = this.dataset.product
         var action = this.dataset.action
         console.log('productId:',productId,'Action:',action)
-    
+        addCookieItem(productId, action)
 
-        console.log('User:',user)
-        if (user == 'AnonymousUser') 
-        {
-            //console.log('User is not authenticated')
-            addCookieItem(productId, action)
-        }
-        else
-        {
-            updateUserOrder(productId,action)
-        }
     })
 }
 
@@ -25,7 +15,7 @@ function updateUserOrder(productId, action) {
 
     console.log('user is authenticated, sending data')
 
-    var url = '/update_item/'
+    var url = '/canteen/update_item/'
 
     fetch(url, {
         method: 'POST',
@@ -48,8 +38,7 @@ function updateUserOrder(productId, action) {
 //Guest user
 function addCookieItem(productId, action) 
 {
-    console.log('User is not authenticated')
-
+    console.log('adding cookies')
 
     if (action == 'add') 
     {
@@ -81,4 +70,11 @@ function addCookieItem(productId, action)
     location.reload()
 
 }
+var count=0
+    for(var i in cart){
+        count=count+cart[i]['quantity'];
+    }
+    console.log(count)
+    document.getElementById('cart-total').innerHTML=count;
+
 

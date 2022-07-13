@@ -62,6 +62,7 @@
     }
 
     console.log('Cart:', cart)
+
         
     </script>
     <style>
@@ -85,14 +86,14 @@
             <li><div class="form-inline">
                 <a href="#">
                     <img id="cart-icon" src="../../static/canteen/images/cart.png" /></a>
-                    <p id="cart-total">{{cartItems}}</p>
+                    <p id="cart-total">0</p>
             </div></li>
         </ul>
     </nav>
     </div>
   </header>
-          {% block content %}
-          {% endblock %}
+  {% block content %}
+  {% endblock %}
         {%block breakfast%}
     {% endblock %}
 
