@@ -3,6 +3,7 @@
 {% block breakfast %}
 <div class="row row1">
     {% for item in items %}
+        {% if item[5] %}
     <div class="col-lg-4">
         <img class="thumbnail" src="../../static/canteen/images/breakfast/{{ item[2] }}">
         <div class="box-element product">
@@ -12,6 +13,7 @@
             <h4 style="display: inline-block;float:right">₹ {{ item[3] }}</h4>
         </div>
     </div>
+        {% endif %}
     {% endfor %}
 </div>
 {% endblock %}

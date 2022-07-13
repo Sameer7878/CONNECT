@@ -1,15 +1,16 @@
-{% extends 'food/main.html' %}
-{% load static %}
+{% extends 'canteen/main.html' %}
 
 {% block todayspl %}
 <div class="row row1">
+    {% for item in items %}
+    {% if item[5] %}
     <div class="col-lg-4">
-        <img class="thumbnail" src="{{product.ImageURL}}">
+        <img class="thumbnail" src="../../static/canteen/images/{{ item[2] }}">
         <div class="box-element product">
-            <h6><strong>{{product.name}}</strong></h6>
+            <h6><strong>{{item[1]}}</strong></h6>
             <hr>
-            <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-            <h4 style="display: inline-block;float:right">₹ {{product.price|floatformat:2}}</h4>
+            <button data-product={{item[0]}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <h4 style="display: inline-block;float:right">₹ {{item[3]|float}}</h4>
         </div>
     </div>
 </div>

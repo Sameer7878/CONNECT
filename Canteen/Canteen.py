@@ -27,6 +27,17 @@ def breakfast():
     return render_template('canteen/breakfast.html',items=breakfast_items)
 @canteen.route('/dinner')
 def dinner():
+    con = sql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="password",
+        database="MINI_PROJECT"
+
+    )
+    cur = con.cursor()
+    cur.execute("SELECT * FROM ITEMS WHERE ITEM_CATEGORY=''")
+    lunch_items = cur.fetchall()
+    con.close()
     return render_template('canteen/dinner.html')
 @canteen.route('/lunch')
 def lunch():
@@ -44,7 +55,18 @@ def lunch():
     return render_template('canteen/lunch.html',items=lunch_items)
 @canteen.route('/special')
 def special():
-    return render_template('canteen/todayspl.html')
+    con = sql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="password",
+        database="MINI_PROJECT"
+
+    )
+    cur = con.cursor()
+    cur.execute("SELECT * FROM ITEMS WHERE ITEM_CATEGORY='SPECIAL'")
+    spl_items = cur.fetchall()
+    con.close()
+    return render_template('canteen/todayspl.html',items=spl_items)
 @canteen.route('/cart')
 def cart():
     return render_template('canteen/cart.html')
