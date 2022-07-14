@@ -1,4 +1,6 @@
 import datetime
+import json
+
 import mysql.connector as sql
 from flask import *
 
@@ -69,7 +71,31 @@ def special():
     return render_template('canteen/todayspl.html',items=spl_items)
 @canteen.route('/cart')
 def cart():
-    return render_template('canteen/cart.html')
+    con = sql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="password",
+        database="MINI_PROJECT"
+
+    )
+    cur = con.cursor()
+    cart_items=[]
+    tot_quan=0
+    tot_price=0
+    if request.cookies['cart']:
+        data=request.cookies['cart']
+        json_data=json.loads(data)
+        for id,quan in json_data.items():
+            tot_quan+=quan['quantity']
+            cart_dict = {}
+            cur.execute(f'SELECT * FROM ITEMS WHERE ID={id}')
+            item_data =cur.fetchone()
+            tot_price+=item_data[3]*quan['quantity']
+            cart_dict[item_data]=quan['quantity']
+            cart_items.append(cart_dict)
+
+        return render_template('canteen/cart.html',items=cart_items,tot_quan=tot_quan,tot_price=tot_price)
+
 @canteen.route('/dashboard')
 def dashboard():
     return render_template('canteen/dashboard.html')

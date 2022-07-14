@@ -6,29 +6,32 @@
     <div class="col-lg-12">
         <div class="box-element">
 
-            <a class="btn btn-outline-dark" href="{{ url_for }}">&#x2190; Back</a>
+            <a class="btn btn-outline-dark" href="{{ url_for('canteen.menu') }}">&#x2190; Back</a>
 
             <br>
             <br>
             <table class="table">
                 <tr>
                     <th>
-                        <h5>Items: <strong>{{order.get_cart_items}}</strong></h5>
+                        <h5>Items:
+                            {% for i in items %}
+                                {% for item in i.keys() %}
+                                    <strong>{{item[1]}},</strong>
+                            {% endfor %}
+                        {% endfor %}
+
+                        </h5>
                     </th>
                     <th>
-                        <h5>Total:<strong>₹{{order.get_cart_total|floatformat:2}}</strong></h5>
+                        <h5>Total:<strong>₹ {{tot_price|float}}</strong></h5>
                     </th>
                     <th>
                         <form id = "form-id" action="" method="post">
-                        {% csrf_token %}
-                        {{form}}
                         <input type="submit" style="float:right; margin:5px;" class="btn btn-success" value="Checkout">
-                        
                         </form>
                     </th>
                 </tr>
             </table>
-
         </div>
 
         <br>
@@ -42,32 +45,33 @@
                 <div style="flex:1"><strong></strong></div>
             </div>
 
-            {% for item in items %}
+            {% for item_dict in items %}
+                {% for item in item_dict.keys() %}
             <div class="cart-row">
-                <div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}"></div>
+                <div style="flex:2"><img class="row-image" src="../../static/canteen/images/{{ item[2] }}"></div>
                 <div style="flex:2">
-                    <p>{{item.product.name}}</p>
+                    <p>{{item[1]}}</p>
                 </div>
                 <div style="flex:1">
-                    <p>₹{{item.product.price|floatformat:2}}</p>
+                    <p>₹{{item[3]|float}}</p>
                 </div>
                 <div style="flex:1">
-                    <p class="quantity">{{item.quantity}}</p>
+                    <p class="quantity">{{item_dict.get(item)}}</p>
                     <div class="quantity">
-                        <img data-product ="{{item.product.id}}"  data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+                        <img data-product ="{{item[0]}}"  data-action="add" class="chg-quantity update-cart" src="../../static/canteen/images/arrow-up.png">
 
-                        <img data-product ="{{item.product.id}}"  data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+                        <img data-product ="{{item[0]}}"  data-action="remove" class="chg-quantity update-cart" src="../../static/canteen/images/arrow-down.png">
                     </div>
                 </div>
                 <div style="flex:1">
-                    <p>₹{{item.get_total|floatformat:2}}</p>
+                    <p>₹{{tot_price|float}}</p>
                 </div>
                 <div style="flex:1">
-                    <a data-product ="{{item.product.id}}"  data-action="delete" class="btn btn-warning update-cart">Delete</a>
+                    <a data-product ="{{item[0]}}"  data-action="delete" class="btn btn-warning update-cart">Delete</a>
                 </div>
             </div>
+                    {% endfor %}
             {% endfor %}
-
         </div>
     </div>
 </div>
