@@ -79,22 +79,25 @@ def cart():
 
     )
     cur = con.cursor()
-    cart_items=[]
-    tot_quan=0
-    tot_price=0
+    cart.cart_items=[]
+    cart.tot_quan=0
+    cart.tot_price=0
     if request.cookies['cart']:
         data=request.cookies['cart']
         json_data=json.loads(data)
         for id,quan in json_data.items():
-            tot_quan+=quan['quantity']
+            cart.tot_quan+=quan['quantity']
             cart_dict = {}
             cur.execute(f'SELECT * FROM ITEMS WHERE ID={id}')
             item_data =cur.fetchone()
-            tot_price+=item_data[3]*quan['quantity']
+            cart.tot_price+=item_data[3]*quan['quantity']
             cart_dict[item_data]=quan['quantity']
-            cart_items.append(cart_dict)
+            cart.cart_items.append(cart_dict)
+        return render_template('canteen/cart.html',items=cart.cart_items,tot_quan=cart.tot_quan,tot_price=cart.tot_price)
+@canteen.route('/checkout/')
+def checkout():
+    return render_template('canteen/checkout.html',items=cart.cart_items,tot_price=cart.tot_price,tot_quan=cart.tot_quan)
 
-        return render_template('canteen/cart.html',items=cart_items,tot_quan=tot_quan,tot_price=tot_price)
 
 @canteen.route('/dashboard')
 def dashboard():

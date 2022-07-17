@@ -26,9 +26,7 @@
                         <h5>Total:<strong>₹ {{tot_price|float}}</strong></h5>
                     </th>
                     <th>
-                        <form id = "form-id" action="" method="post">
-                        <input type="submit" style="float:right; margin:5px;" class="btn btn-success" value="Checkout">
-                        </form>
+                        <button style="float:right; margin:5px;" class="btn btn-success" onclick="location.href='{{ url_for('canteen.checkout') }}'">Checkout</button>
                     </th>
                 </tr>
             </table>
