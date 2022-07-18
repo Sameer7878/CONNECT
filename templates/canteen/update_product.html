@@ -1,5 +1,4 @@
-{% extends 'food/main.html' %}
-{% load static %}
+{% extends 'canteen/main.html' %}
 
 
 {% block update_product %}
@@ -8,15 +7,35 @@
     <br>
     <div class="center-column">
         <div class="card card-body">
-            <form enctype="multipart/form-data" action="" method="POST">
-                {% csrf_token %}
-                {% for field in form %}
+            <form enctype="multipart/form-data" action="{{ url_for('canteen.updating') }}" method="POST">
                 <div class="form-group">
-                    {{ field.label }}
-                    {{ field }}
-
+                    ID
+                    <input type="text" name="id" value="{{ product[0] }}" maxlength="200" class="form-control" required id="id_name" readonly>
                 </div>
-                {% endfor %}
+                <div class="form-group">
+                    Name
+                    <input type="text" name="name" value="{{ product[1] }}" maxlength="200" class="form-control" required id="id_name">
+                </div>
+                <div class="form-group">
+                    Price
+                    <input type="number" name="price" value="{{ product[3] }}"  class="form-control" required id="id_price">
+                </div>
+                <div class="form-group">
+                    Category
+                    <select name="category" class="form-control" required id="id_category">
+                        <option value="">---------</option>
+                        <option value="BREAKFAST">BREAKFAST</option>
+                        <option value="LUNCH" selected>LUNCH</option>
+                        <option value="DINNER">DINNER</option>
+                        <option value="SPECIAL">SPECIAL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Image
+                    Currently: <a href="../../static/canteen/images/{{ product[2] }}" target="_blank">{{ product[2] }}</a>
+                    Change:
+                    <input type="file" name="image" accept="image/*" class="form-control" id="id_image">
+                </div>
                 <hr>
                 <input class="btn btn-sm btn-success" type="submit" name="submit">
             </form>

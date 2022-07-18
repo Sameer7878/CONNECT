@@ -5,7 +5,7 @@
     <div class="col-lg-6">
         <div class="box-element" id="payment-info">
             <small>Payment Options</small>
-            <button class="btn btn-info" id="make-payment">Make Payment</button>
+            <a class="btn btn-info" id="make-payment" href='{{ url_for('canteen.payments',item_list=items,tot_price=tot_price) }}'>Make Payment</a>
         </div>
 
     </div>
