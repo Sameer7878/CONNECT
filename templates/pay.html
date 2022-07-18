@@ -94,9 +94,10 @@
             <label>Enter Date:</label>
             <input type="date" value="{{ date }}" name="date" required/>
             <label>Upload Photo</label>
-            <input type="file" value="Choose"  name='file' class="bg-dark" required/>
-            <input type="hidden" value="{{ fee_name }}" name="fee-type">
+            <input type="file" value="Choose"  name='file' class="bg-white" required/>
+            <input type="hidden" value="{{ fee_name }}" name="fee-type"/>
             <input type="submit" class="btn" value="Submit"/>
+
             <p class="bg-warning w-25" style="color:red">{{ msg }}</p>
         </form>
 </div>

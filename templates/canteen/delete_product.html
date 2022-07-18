@@ -1,16 +1,15 @@
-{% extends 'food/main.html' %}
-{% load static %}
+{% extends 'canteen/main.html' %}
 {% block delete_product %}
 
 <body>
 <br>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card card-body">
-            <p>Are you sure you want to delete {{product.name}}?</p>
-            <form action="" method="POST">
-                {% csrf_token %}
-                <a class="btn btn-sm btn-warning" href="{% url 'view_product' %}">Cancel</a>
+            <p>Are you sure you want to delete {{product_name}}?</p>
+            <form action="{{ url_for('canteen.deleting') }}" method="POST">
+                <input type="hidden" value="{{ product_id }}" name="id">
+                <a class="btn btn-sm btn-warning" href="{{ url_for('canteen.view_product') }}">Cancel</a>
                 <input class="btn btn-sm btn-danger" type="submit" name="confirm">
             </form>
         </div>

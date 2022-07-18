@@ -12,7 +12,7 @@
 </head>
 <header>
     <div class="container">
-        <div class="logo" ><h2><span></span>CONNECT PAYMENTS</h2></div>
+        <div class="logo" ><h2><span></span>CONNECT STATUS</h2></div>
         <nav class="slide">
         <ul>
            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
@@ -40,6 +40,8 @@
                 <th>CATEGORY</th>
                 <th>DATE</th>
                 <th>STATUS</th>
+                <th>TOKEN NO</th>
+                <th>ORDER STATUS</th>
             </tr>
             <tr bgcolor="#ffdead">
                 {% if status1==[] %}
@@ -62,14 +64,32 @@
                     <td>{{ data[3] }}</td>
                     <td>{{ data[4] }}</td>
                     <td>{{ data[5] }}</td>
-                        {% if data[6]==0 %}
+                        {% if data[6]==0 and data[4]!='Canteen' %}
                         <td bgcolor="#dc143c">Pending</td>
-                        {% elif data[6]==1 %}
+                        {% elif data[6]==1 and data[4]!='Canteen'%}
                         <td bgcolor="#00fa9a">Success<br>
-                         <a href="#" >Download</a> </td>
-                        {% else %}
+                         <a href="{{ url_for('status.reciept',reciept_id=data[0]) }}" >Download</a> </td>
+                        {% elif data[4]!='Canteen'%}
                         <td bgcolor="red">Rejected</td>
+                            {% else %}
+                            <td>..</td>
                         {% endif %}
+                    {% if data[7] %}
+                    <td>{{data[7]}}</td>
+                    {% else %}
+                    <td>..</td>
+                    {% endif %}
+                    {% if data[7] %}
+                    {% if data[8]==0 and data[4]=='Canteen' %}
+                    <td>ORDER NOT DELIVERED</td>
+                    {% elif data[4]=='Canteen' and data[8]==1 %}
+                    <td>ORDER DELIVERED</td>
+                        {% else %}
+                        <td>..</td>
+                    {% endif %}
+                    {% else %}
+                    <td>..</td>
+                    {% endif %}
 
                 </tr>
                 {% endfor %}

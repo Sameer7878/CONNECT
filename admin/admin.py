@@ -16,7 +16,7 @@ def admin_home():
                 )
         cur = con.cursor()
         cur.execute(
-            "SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO, STUDENT_INFO.CLASS ,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO where STATUS.STATUS=0")
+            "SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO, STUDENT_INFO.CLASS ,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO where STATUS.STATUS=0 and STATUS.ADMIN_TYPE=0;")
 
         admin_data = cur.fetchall()
         con.close()
@@ -70,6 +70,12 @@ def undo():
         cur = con.cursor()
         cur.execute('SELECT AMOUNT,CATEGORY,ROLLNO FROM STATUS WHERE UTR_NO="%s"'%(utrno))
         amount = cur.fetchone()
+        if  amount[1]=='Canteen':
+            cur.execute('UPDATE STATUS SET STATUS=0  WHERE UTR_NO="%s"' % (utrno))
+            cur.execute('UPDATE STUDENT_INFO SET wallet=wallet-"%s"' % (int(amount[0])))
+            con.commit()
+            con.close()
+            return redirect(url_for('admin.admin_home'))
         category = amount[ 1 ].upper().split(' ')
         category = category[ 0 ] + '_' + category[ 1 ]
         cur.execute(f'SELECT PAID_AMOUNT ,TOTAL_AMOUNT  FROM {category} WHERE ROLLNO="%s"'%(amount[2]))
@@ -104,6 +110,11 @@ def deny():
 
         cur.execute('SELECT CATEGORY,AMOUNT,ROLLNO FROM STATUS WHERE UTR_NO="%s"'%(utrno))
         categ=cur.fetchone()
+        if  categ[0]=='Canteen':
+            cur.execute('UPDATE STATUS SET STATUS=2  WHERE UTR_NO="%s"' % (utrno))
+            con.commit()
+            con.close()
+            return redirect(url_for('admin.admin_home'))
         category = categ[0].upper().split(' ')
         category = category[ 0 ] + '_' + category[ 1 ]
         cur.execute('UPDATE STATUS SET STATUS=2 WHERE UTR_NO="%s"'%(utrno))
@@ -130,6 +141,12 @@ def accept():
         cur = con.cursor()
         cur.execute('SELECT AMOUNT,CATEGORY,ROLLNO FROM STATUS WHERE UTR_NO="%s"'% (utrno))
         amount = cur.fetchone()
+        if  amount[1]=='Canteen':
+            cur.execute('UPDATE STATUS SET STATUS=1  WHERE UTR_NO="%s"' % (utrno))
+            cur.execute('UPDATE STUDENT_INFO SET wallet=wallet+"%s"'%(int(amount[0])))
+            con.commit()
+            con.close()
+            return redirect(url_for('admin.admin_home'))
         category=amount[1].upper().split(' ')
         category=category[0]+'_'+category[1]
         cur.execute(f'SELECT PAID_AMOUNT ,TOTAL_AMOUNT  FROM {category} WHERE ROLLNO="%s"'%(amount[2]))
@@ -157,7 +174,7 @@ def accepted():
 
                 )
     cur = con.cursor()
-    cur.execute("SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.STATUS=1")
+    cur.execute("SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.STATUS=1 and STATUS.ADMIN_TYPE=0;")
     data = cur.fetchall()
     con.close()
     return render_template('admin/admin.html', status1=data)
@@ -174,7 +191,7 @@ def rejected():
 
                 )
     cur = con.cursor()
-    cur.execute("SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.STATUS=2")
+    cur.execute("SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.STATUS=2 and STATUS.ADMIN_TYPE=0;")
     data = cur.fetchall()
     con.close()
     return render_template('admin/admin.html', status1=data)

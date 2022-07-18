@@ -1,81 +1,44 @@
-{% extends 'food/main.html' %}
-{% load static %}
+{% extends 'canteen/main.html' %}
 
 {% block checkout %}
 <div class="row">
     <div class="col-lg-6">
-        <div class="box-element" id="form-wrapper">
-            <form id="form">
-                {% csrf_token %}
-                <div id="user-info">
-                    <div class="form-field">
-                        <input required class="form-control" type="text" name="name" placeholder="Name..">
-                    </div>
-                    <div class="form-field">
-                        <input required class="form-control" type="email" name="email" placeholder="Email..">
-                    </div>
-                </div>
-
-                <div id="shipping-info">
-                    <hr>
-                    <p>Shipping Information:</p>
-                    <hr>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Address">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="City">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="state" placeholder="State">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="country" placeholder="Country">
-                    </div>
-                </div>
-
-                <hr>
-                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
-            </form>
-        </div>
-
-        <br>
-        <div class="box-element hidden" id="payment-info">
-            <small>Paypal Options</small>
-            <button class="btn btn-info" id="make-payment">Make Payment</button>
+        <div class="box-element" id="payment-info">
+            <small>Payment Options</small>
+            <a class="btn btn-info" id="make-payment" href='{{ url_for('canteen.payments',item_list=items,tot_price=tot_price) }}'>Make Payment</a>
         </div>
 
     </div>
 
     <div class="col-lg-6">
         <div class="box-element">
-            <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+            <a class="btn btn-outline-dark" href="{{ url_for('canteen.cart') }}">&#x2190; Back to Cart</a>
             <hr>
             <h3>Order Summary</h3>
             <hr>
-            {% for item in items %}
+            {% for item_dict in items%}
+                {% for item in item_dict.keys() %}
             <div class="cart-row">
-                <div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}"></div>
+                <div style="flex:2"><img class="row-image" src="../../static/canteen/images/{{ item[2] }}"></div>
                 <div style="flex:2">
-                    <p>{{item.product.name}}</p>
+                    <p>{{item[1]}}</p>
                 </div>
                 <div style="flex:1">
-                    <p>₹{{item.product.price|floatformat:2}}</p>
+                    <p>₹{{item[3]|float}}</p>
                 </div>
                 <div style="flex:1">
-                    <p>x{{item.quantity}}</p>
+                    <p>{{item_dict.get(item)}}</p>
                 </div>
             </div>
+                {% endfor %}
             {% endfor %}
-            <h5>Items: {{order.get_cart_items}}</h5>
-            <h5>Total: ₹{{order.get_cart_total|floatformat:2}}</h5>
+            <h5>Items: {{tot_quan}}</h5>
+            <h5>Total: ₹{{tot_price|float}}</h5>
         </div>
     </div>
 </div>
-<script>
+{% endblock%}
+<!--<script>
 
     var home_delivery = '{{delivery}}';
     var total = '{{order.get_cart_total}}';
@@ -165,10 +128,9 @@
                 cart = {}
                 document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
                 
-                window.location.href = "{% url 'menu' %}"
+                window.location.href = ""
     })
 }
 
     
-</script>
-{% endblock%}
+</script>-->

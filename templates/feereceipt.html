@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <title>Receipt</title>
+</head>
+<style>
+    #bg {
+        background: url('https://upload.wikimedia.org/wikipedia/en/thumb/3/3d/NBKRIST_logo.png/220px-NBKRIST_logo.png') no-repeat;
+        background-position: center;
+        opacity: 10%;
+        position: absolute;
+        width:100%;
+        height:100%;
+    }
+    #content {
+  text-align: left;
+  width: 75%;
+  margin: auto;
+  position: relative;
+}
+
+    body{
+        text-align: center;
+        margin: 10px;
+        width:9in;
+        height: 5.5in;
+        padding:5px;
+        border: 1px solid #117a8b;
+    }
+    table{
+        margin:auto;
+        width:80%;
+        text-align: center;
+        opacity:100%;
+    }
+    #student_details{
+        width:90%;
+        text-align: left;
+    }
+    #center_align{
+        text-align: center;
+    }
+
+
+</style>
+<body>
+<div id="content">
+    <div id="bg"></div>
+        <span>
+    <h5 style="text-decoration: underline;text-align: center;"> RECEIPT</h5>
+    <h3 style ='color:#117a8b;'>N.B.K.R. INSTITUTE OF SCIENCE AND TECHNOLOGY :: VIDYANAGAR</h3>
+            <table id="student_details">
+                <tr>
+                    <th>Adm/Reg.No: {{data[2]}}</th>
+                    <th id="center_align">Bill.No: {{data[0]}}</th>
+                </tr>
+                <tr>
+                    <th>Name: {{data[1]}} </th> 1
+                    <th id="center_align">Branch: {{data[4]}} {{data[3]}}</th>
+                </tr>
+            </table>
+
+
+
+        <p style ='color:#117a8b; text-align: center;'>{{data[6]}} Payment {{data[7]}}</p>  <!date of payment and towards>
+
+
+
+        <table>
+            <tr>
+                <th style="width:15%;">S.NO</th>
+                <th style="width:80%;">Particulars</th>
+                <th style="width:5%; text-align: right">Amount</th><!..Paid amount>
+            </tr>
+            {% set amount=0 %}
+            <tr>
+                <td>1.</td>
+                <td>University Fees</td>
+                <td style="text-align: right">{{amount}}</td>
+            </tr>
+
+            <tr>
+                <td>2.</td>
+                <td>Tution Fees</td>
+                <td style="text-align: right">{{data[5]}}</td>
+            </tr>
+
+            <tr>
+                <td>3.</td>
+                <td>Hostel Fees</td>
+                <td style="text-align: right">{{amount}}</td>
+            </tr>
+
+            <tr>
+                <td>4.</td>
+                <td>Exam Fees</td>
+                <td style="text-align: right">{{amount}}</td>
+
+            </tr>
+
+            <tr>
+                <td>5.</td>
+                <td>Other Fees </td>
+                <td style="text-align: right">{{amount}}</td>
+            </tr>
+
+            <tr>
+                <td>6.</td>
+                <td>Bus Fees</td>
+                <td style="text-align: right">{{amount}}</td>
+            </tr>
+
+            <tr>
+                <td>7.</td>
+                <td>Late Fees</td>
+                <td style="text-align: right">{{amount}}</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: left">Total Amount Paid</th>
+
+                <th style="text-align: right">{{amount}}</th>
+            </tr>
+        </table>
+    <span style="text-align: left;"> In words:  </span>
+
+    <table>
+            <tr>
+                <td rowspan="2" colspan="2" style=" text-align: left; text-decoration: underline; width:80%;"> remarks:</td>
+                <td>This receipt is digitally signed</td>
+            </tr>
+
+            <tr>
+                <th style ='color:#117a8b;'>Signature</th>
+            </tr>
+
+    </table>
+
+</span>
+</div>
+</body>
+<center><button onclick="location.href='{{ url_for('status.download') }}'">Download</button></center>
+</html>

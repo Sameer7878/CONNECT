@@ -76,21 +76,38 @@
   </head>
   <body>
   <header>
+      <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container1">
         <div class="logo" ><h2><span></span>CONNECT CANTEEN</h2></div>
-        <nav class="slide">
+        <nav class="slide" >
+            <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul>
-            {% set name='SHAIK SAMEER' %}
             <li><a class="name" href="#"> Hello,{{ name }} </a></li>
+            <li><a href="{{ url_for('Fee_app.pay',amount=200,fee_name='Canteen')}}">Wallet
+            <span style="border: tomato solid 2px; border-radius: 10px; padding: 2px;">{{ wallet_bal }}</span></a></li>
            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
             <li><div class="form-inline">
-                <a href="#">
+                <a href="{{ url_for('canteen.cart') }}">
                     <img id="cart-icon" src="../../static/canteen/images/cart.png" /></a>
                     <p id="cart-total">0</p>
             </div></li>
         </ul>
+            </div>
     </nav>
     </div>
+      </nav>
+
   </header>
   {% block content %}
   {% endblock %}
@@ -111,7 +128,16 @@
 
     {%block checkout%}
     {% endblock %}
-    <!-- JS, Popper.js, and jQuery -->
+  {% block d %}
+  {% endblock %}
+  {% block view_product %}
+  {% endblock %}
+   {% block update_product %}
+  {% endblock %}
+  {% block delete_product %}
+  {% endblock %}
+  {% block add_product %}
+  {% endblock %}
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

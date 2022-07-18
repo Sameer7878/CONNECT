@@ -13,7 +13,6 @@ name = academic =class1 =section =gender=roll_no=None
 APP_ROOT = '/Users/sameershaik/PycharmProjects/NBKR_CONNECT'
 UPLOAD_FOLD = '/static/admin/uploadeddata'
 UPLOAD_FOLDER=APP_ROOT+UPLOAD_FOLD
-print(UPLOAD_FOLDER)
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -340,16 +339,16 @@ def pay():
         return render_template('pay.html', amount=amount, date=date1, fee_name=fee_name)
     else:
         amount = request.args.get('amount')
-        tr_date = request.args.get('date')
-        transaction_no = request.args.get('number')
+        tr_date = date.today()
         fee_type = request.args.get('fee_name')
-        return render_template('pay.html', amount=amount, date=tr_date, number=transaction_no,fee_name=fee_type,msg='upload jpg/pdf/jpeg only')
+        return render_template('pay.html', amount=amount, date=tr_date,fee_name=fee_type)
 
 
 @Fee_app.route('/updating', methods=[ 'POST', 'GET' ])
 def updating():
     if not session.get('name'):
         return redirect(url_for('login.login1'))
+    roll_no=session.get('name')
     if request.method == 'POST':
         fee_type=request.form['fee-type']
         transaction_no = request.form['utrno']
@@ -357,8 +356,11 @@ def updating():
         tr_date = request.form['date']
         #filesz = request.files['file'].read()
         file = request.files['file']
-        category = fee_type.upper().split(' ')
-        category = category[ 0 ] + '_' + category[ 1 ]
+        if not fee_type=='Canteen':
+            category = fee_type.upper().split(' ')
+            category = category[ 0 ] + '_' + category[ 1 ]
+        else:
+            category='Canteen'
         if file and allowed_file(file.filename):
             """filename = secure_filename(file.filename)"""
             filename=str(transaction_no)+'.jpeg'
@@ -373,7 +375,8 @@ def updating():
             cur = con.cursor()
             cur.execute(
                 'INSERT INTO STATUS(ROLLNO, AMOUNT, CATEGORY, UTR_NO, DATE, PROOF_LINK,UDATE)  VALUES ("%s","%s","%s","%s","%s","%s","%s");'%(roll_no, amount, fee_type, transaction_no, tr_date, filename, date.today()))
-            cur.execute(f'UPDATE {category} SET DUE_AMOUNT=DUE_AMOUNT-{amount} WHERE ROLLNO="%s"'%(roll_no))
+            if not fee_type=='Canteen':
+                cur.execute(f'UPDATE {category} SET DUE_AMOUNT=DUE_AMOUNT-{amount} WHERE ROLLNO="%s"'%(roll_no))
             con.commit()
             con.close()
             return redirect(url_for('status.all_status'))

@@ -33,7 +33,7 @@
             <a>Services</a>
             <div class="dropdown-content">
               <a href="{{ url_for('Fee_app.home') }}">Fee Payments</a>
-              <a href="{{ url_for('canteen.menu') }}">Canteen orders</a>
+              <a href="{{ url_for('canteen.home') }}">Canteen orders</a>
               <a href="#">Result</a>
               <a href="#">Accademic</a>
             </div>
@@ -47,6 +47,8 @@
           <button class="btn" onclick="location.href='{{ url_for('login.login1') }}'">Sign up</button>
           <button class="btn btn-full" onclick="location.href='{{ url_for('login.login1') }}'">Sign in</button>
         </div>
+              {% else %}
+              <button class="btn" onclick="location.href='{{ url_for('Fee_app.signout') }}'">Sign Out</button>
           {% endif %}
       </nav>
     </div>

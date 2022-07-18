@@ -2,6 +2,17 @@
     
     font-family: "Raleway", "Book Antiqua", Palatino, serif;
 }
+td[colspan]:not([colspan="1"]) {
+    text-align: center;
+}
+.flash{
+     color: green;
+	text-align: center;
+     border: 2px solid #151414;
+     border-radius: 10px;
+     padding: 1px;
+     font-size: 25px;
+ }
 
 body{
   width: 100%;

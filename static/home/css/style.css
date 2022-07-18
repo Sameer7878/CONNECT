@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 /*google fonts*/
 
+.flash{
+     color: green;
+     border: 2px solid #151414;
+     border-radius: 10px;
+     padding: 1px;
+     font-size: 18px;
+ }
 ::selection {
   background-color: #000000;
    color: tomato;
