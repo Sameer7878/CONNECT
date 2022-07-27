@@ -1,5 +1,75 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
+
+header {
+  width: 100%;
+  height: auto;
+  padding: 50px 0 30px 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+
+header .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .logo h2 {
+  font-size: 1.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: tomato;
+  cursor: pointer;
+}
+
+header .logo h2 span {
+  display: inline-block;
+  width: 7px;
+  height: 12px;
+  background-color: #353F48;
+  margin-right: 3px;
+  transition: .3s;
+}
+
+header .logo h2:hover span {
+  background-color: tomato;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+header nav ul {list-style: none;}
+
+header nav ul li {display: inline-block;}
+
+header nav ul li a {
+  font-size: .9em;
+  font-weight: 600;
+  margin: 0 15px;
+  padding: 0 5px 3px;
+  border-bottom: 2px solid transparent;
+  transition-duration: .3s;
+  transition-property: color, border-bottom;
+}
+
+header nav ul li a:hover {
+    text-decoration: none;
+  border-bottom: 2px solid #353F48;
+  color: #353F48;
+}
+
+header nav .cta {margin-left: 30px;}
+
+header nav .cta button:last-child {margin-left: 20px;}
 ::selection {
   background-color: #000000;
    color: tomato;
@@ -28,7 +98,7 @@ body {
 }
 
 .student-profile .card h3 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
 }
 
@@ -43,12 +113,44 @@ body {
     padding: 5px 10px;
     color: #000;
 }
+section{
+    padding-top: 150px;
+    background: #FFFFFF;
+}
 
 
 .ScriptHeader {
-    float: left;
-    width: 100%;
-    padding: 2em 0;
+}
+section ul {
+    font-weight: bold;
+    font-size: 10px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+section li {
+  float: left;
+}
+
+section li a {
+  display: block;
+  color: #212020;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+section li a:hover:not(.active) {
+    border-bottom: 2px solid #353F48;
+  color: #353F48;
+}
+
+section .active {
+     border-bottom: 2px solid #353F48;
+  color: #353F48;
 }
 .rt-heading {
     margin: 0 auto;
@@ -92,11 +194,10 @@ body {
     margin-top: 5px;
 }
 
-
 .rt-container {
-	margin: 0 auto;
-	padding-left:12px;
-	padding-right:12px;
+
+    background: #FFFFFF;
+
 }
 .rt-row:before, .rt-row:after {
   display: table;
@@ -204,74 +305,3 @@ a {
 
 
 /*ends basic*/
-
-header {
-  width: 100%;
-  height: auto;
-  padding: 50px 0 30px 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 5;
-}
-
-header .container {
-  width: 1600px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-}
-
-header .logo h2 {
-  font-size: 1.8em;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: tomato;
-  cursor: pointer;
-}
-
-header .logo h2 span {
-  display: inline-block;
-  width: 7px;
-  height: 12px;
-  background-color: #353F48;
-  margin-right: 3px;
-  transition: .3s;
-}
-
-header .logo h2:hover span {
-  background-color: tomato;
-}
-
-header nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-header nav ul {list-style: none;}
-
-header nav ul li {display: inline-block;}
-
-header nav ul li a {
-  font-size: .9em;
-  font-weight: 600;
-  margin: 0 15px;
-  padding: 0 5px 3px;
-  border-bottom: 2px solid transparent;
-  transition-duration: .3s;
-  transition-property: color, border-bottom;
-}
-
-header nav ul li a:hover {
-  border-bottom: 2px solid #353F48;
-  color: #353F48;
-}
-
-header nav .cta {margin-left: 30px;}
-
-header nav .cta button:last-child {margin-left: 20px;}
