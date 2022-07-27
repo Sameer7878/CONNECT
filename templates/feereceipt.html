@@ -3,88 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0">
+      <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
     <title>Receipt</title>
 </head>
 <style>
     #bg {
-        background: url('https://upload.wikimedia.org/wikipedia/en/thumb/3/3d/NBKRIST_logo.png/220px-NBKRIST_logo.png') no-repeat;
+        background: url("http://127.0.0.1:5000/static/favicon_io/android-chrome-192x192.png");
+        background-repeat: no-repeat;
         background-position: center;
-        opacity: 10%;
-        position: absolute;
-        width:100%;
-        height:100%;
+        opacity: 0.2;
+        position:absolute;
+        width: 192px;
+        height: 192px;
+        margin: 200px 350px;
     }
     #content {
-  text-align: left;
-  width: 75%;
-  margin: auto;
-  position: relative;
-}
-
-    body{
         text-align: center;
-        margin: 10px;
-        width:9in;
-        height: 5.5in;
-        padding:5px;
-        border: 1px solid #117a8b;
+        border: 1px solid green;
     }
     table{
         margin:auto;
-        width:80%;
+        width: 100%;
         text-align: center;
-        opacity:100%;
     }
     #student_details{
-        width:90%;
         text-align: left;
+        width:80%;
     }
+
     #center_align{
-        text-align: center;
+        text-align: left;
+        width:38%;
+    }
+    #center_right{
+        text-align: right;
     }
 
-
+    button{
+        border-radius: 5px;
+        cursor: pointer;
+        border: 1px solid #117a8b;
+        width:200px;
+        height: 30px;
+        background: white;
+    }
+    #sign_tab{
+        padding-top: 50px;
+        width:75%;
+    }
 </style>
 <body>
 <div id="content">
     <div id="bg"></div>
-        <span>
     <h5 style="text-decoration: underline;text-align: center;"> RECEIPT</h5>
-    <h3 style ='color:#117a8b;'>N.B.K.R. INSTITUTE OF SCIENCE AND TECHNOLOGY :: VIDYANAGAR</h3>
+    <h3 style ='color:#117a8b;'>N.B.K.R. INSTITUTE OF SCIENCE AND TECHNOLOGY</h3>
+    <h3 style ='color:#117a8b;'>VIDYANAGAR</h3>
             <table id="student_details">
                 <tr>
-                    <th>Adm/Reg.No: {{data[2]}}</th>
-                    <th id="center_align">Bill.No: {{data[0]}}</th>
+                    <th>Adm/Reg.No: {{data[2]}}</th> <!..rollno>
+                    <th id="center_right">Bill.No: {{data[0]}}</th>
                 </tr>
                 <tr>
-                    <th>Name: {{data[1]}} </th> 1
-                    <th id="center_align">Branch: {{data[4]}} {{data[3]}}</th>
+                    <th>Name: {{data[1]}} </th> <!..name of student>
+                    <th id="center_right">Branch: {{ data[4] }} {{data[3]}}</th> <!.. III B.Tech(IT)>
                 </tr>
             </table>
 
 
 
-        <p style ='color:#117a8b; text-align: center;'>{{data[6]}} Payment {{data[7]}}</p>  <!date of payment and towards>
+        <p style ='color:#117a8b; text-align: center;'>{{data[6]}} Payment On {{data[7]}}</p>  <!date of payment and towards>
 
-
+<br>
 
         <table>
-            <tr>
-                <th style="width:15%;">S.NO</th>
-                <th style="width:80%;">Particulars</th>
-                <th style="width:5%; text-align: right">Amount</th><!..Paid amount>
-            </tr>
-            {% set amount=0 %}
-            <tr>
-                <td>1.</td>
-                <td>University Fees</td>
-                <td style="text-align: right">{{amount}}</td>
+           <tr>
+                <th  style=" padding:2px 30px 2px 30px">Particulars</th>
+                <th style=" text-align: left">Amount</th><!..Paid amount>
             </tr>
 
             <tr>
+                <td style="text-align: center">{{data[6]}}</td>
+                <td style="text-align: left">{{data[5]}}</td>
+            </tr>
+            <!--  <tr>
                 <td>2.</td>
                 <td>Tution Fees</td>
-                <td style="text-align: right">{{data[5]}}</td>
+                <td style="text-align: right">{{amount}}</td>
             </tr>
 
             <tr>
@@ -118,27 +124,20 @@
                 <td style="text-align: right">{{amount}}</td>
             </tr>
             <tr>
-                <th colspan="2" style="text-align: left">Total Amount Paid</th>
-
                 <th style="text-align: right">{{amount}}</th>
-            </tr>
+            </tr>-->
         </table>
-    <span style="text-align: left;"> In words:  </span>
 
-    <table>
+        <table id="sign_tab">
             <tr>
-                <td rowspan="2" colspan="2" style=" text-align: left; text-decoration: underline; width:80%;"> remarks:</td>
-                <td>This receipt is digitally signed</td>
-            </tr>
+                <td rowspan="2" style=" text-align: left; width:75%;"><span style="font-weight: bold;text-decoration: underline">Remarks:</span><span> Payment done by CONNECT PAYMENTS<br>UTR NO: {{ data[8] }}</span></td>
+                <td><img src="http://127.0.0.1:5000/static/tick.png" alt="verified"><br>Digitally Signed</td>
 
+            </tr>
             <tr>
                 <th style ='color:#117a8b;'>Signature</th>
             </tr>
-
     </table>
-
-</span>
 </div>
 </body>
-<center><button onclick="location.href='{{ url_for('status.download') }}'">Download</button></center>
 </html>

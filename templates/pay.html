@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Pay</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , max-scale=1.0,user-scalable=no">
-    <link rel="icon" type="image/x-icon" href="../static/feepay/images/favicon.ico">
+      <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/static/favicon_io/site.webmanifest">
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/footer.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/home.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/responsive.css')}}">
@@ -23,95 +27,11 @@
 </header>
 
 <body>
-<div id="container" style="margin-left: 35%; width: max-content;">
-     <div class="back">
-    <a onclick="goBack()" href="#"><img style="width: 20px;" src="{{ url_for('static',filename='feepay/images/icons8-back-30.png')}}" alt="">Back</a>
-    </div>
-    <button class="btn active text-center" ><span class="btnf"> {{ fee_name }}</span></button>
-
-</div>
-<div class="student-profile py-4">
-  <div class="container text-center">
-<div class="card-body bg-white">
-              <div class="card-header bg-transparent border-0 ">
-            <h3 class="mb-0 text-center"><i><img  src="{{ url_for('static',filename='feepay/images/icons8-bank-60.png') }}"></i>ACCOUNT DETAILS</h3>
-          </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th width="20%" class="text-center">Union Bank</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <th width="20%" class="text-center">State Bank Of India</th>
-                </tr>
-              <tr>
-                  <th width="30%">Account Number</th>
-                <td width="2%">:</td>
-                <td>116010011000353</td>
-                  <td></td>
-                <th width="30%">Account Number</th>
-                <td width="2%">:</td>
-                <td>33362532008</td>
-              </tr>
-              <tr>
-                <th width="30%">Account Holder Name</th>
-                <td width="2%">:</td>
-                <td>Director,NBKRIST</td>
-                  <td></td>
-                  <th width="30%">Account Holder Name</th>
-                <td width="2%">:</td>
-                <td>Director,NBKRIST</td>
-              </tr>
-              <tr>
-                     <th width="30%">Bank Name</th>
-                <td width="2%">:</td>
-                <td>Union Bank of India</td>
-                  <td></td>
-                <th width="30%">Bank Name</th>
-                <td width="2%">:</td>
-                <td>State Bank of India</td>
-              </tr>
-                <tr>
-                    <th width="30%">IFSC Code</th>
-                    <td width="2%">:</td>
-                    <td>UBIN0811602</td>
-                    <td></td>
-                      <th width="30%">IFSC Code</th>
-                    <td width="2%">:</td>
-                    <td>SBIN0002811</td>
-                </tr>
-            </table>
-    <p class="font-weight-bold">You should pay by NEFT/<img class="image" src="{{ url_for('static',filename='feepay/images/icons8-google-pay-india-48.png') }}">/
-        <img src="{{ url_for('static',filename='feepay/images/icons8-phone-pe-48.png') }}">/
-        <img src="{{ url_for('static',filename='feepay/images/icons8-paytm-48.png') }}"> </p>
-</div></div></div>
-<div id="container">
-        <form class="scroll" action="{{ url_for('Fee_app.updating') }}" enctype="multipart/form-data" method="post">
-            <label>Enter Amount</label>
-            <input type="number" value='{{ amount }}' name="amount" required>
-        <label>Enter Transaction No.</label>
-        <input type="number" value="{{ number }}" name="utrno" placeholder="Enter UTR No..." required/>
-            <label>Enter Date:</label>
-            <input type="date" value="{{ date }}" name="date" required/>
-            <label>Upload Photo</label>
-            <input type="file" value="Choose"  name='file' class="bg-white" required/>
-            <input type="hidden" value="{{ fee_name }}" name="fee-type"/>
-            <input type="submit" class="btn" value="Submit"/>
-
-            <p class="bg-warning w-25" style="color:red">{{ msg }}</p>
-        </form>
-</div>
-<br><br>
+{% block options %}
+{% endblock %}
 </body>
 <div class="footer-basic mt-auto">
         <footer>
-            <div class="social">
-                <a><img src="https://img.icons8.com/fluency/48/000000/facebook-new.png"/></a>
-                <a><img src="https://img.icons8.com/color/48/000000/youtube-play.png"/></a>
-                <a><img src="https://img.icons8.com/fluency/48/000000/twitter.png"/></a>
-                <a><img src="https://img.icons8.com/color/50/000000/instagram-new.png"/></a>
-                <a><img src="https://img.icons8.com/fluency/48/000000/gmail-new.png"/></a>
-            </div>
             <p class="copyright">IT Batch © 2021</p>
         </footer>
     </div>

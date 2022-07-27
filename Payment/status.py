@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session,request
+from flask import Blueprint, render_template, session,request,make_response
 import mysql.connector as sql
 import pdfkit
 
@@ -34,10 +34,11 @@ def reciept(reciept_id):
     )
     cur = con.cursor()
     cur.execute(
-        "SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STUDENT_INFO.ACADEMIC,STATUS.AMOUNT,STATUS.CATEGORY,STATUS.DATE FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.ROWID= '%s' " % (reciept_id))
+        "SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STUDENT_INFO.ACADEMIC,STATUS.AMOUNT,STATUS.CATEGORY,STATUS.DATE,STATUS.UTR_NO FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.ROWID= '%s' " % (reciept_id))
     data=cur.fetchone()
-    return render_template('feereceipt.html',data=data)
-@status.route('/download')
-def download():
-    link=request.referrer
-    pdfkit.from_url(link, 'connect.pdf')
+    receipt=render_template('feereceipt.html',data=data)
+    pdf=pdfkit.from_string(receipt,False)
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = "inline; filename=output.pdf"
+    return response

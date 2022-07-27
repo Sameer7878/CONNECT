@@ -7,9 +7,13 @@ from Registration.registration import register
 from Payment.status import status
 from admin.admin import admin
 from Canteen.Canteen import canteen
+from Academic.academic import acad
+from Results.result import result
 
 app = Flask(__name__)
 app.register_blueprint(login)
+app.register_blueprint(result,url_prefix='/results/')
+app.register_blueprint(acad,url_prefix='/acadDetails/')
 app.register_blueprint(register,url_prefix='/register/')
 app.register_blueprint(canteen,url_prefix='/canteen/')
 app.register_blueprint(admin,url_prefix='/admin/')

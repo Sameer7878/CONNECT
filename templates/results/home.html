@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello Admin</title>
+    <title>Student Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , max-scale=1.0,user-scalable=no">
       <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
@@ -15,12 +15,10 @@
 </head>
 <header>
     <div class="container">
-        <div class="logo" ><h2 onclick="location.href='{{ url_for('Fee_app.index') }}'"><span></span>CONNECT PAYMENTS</h2></div>
+        <div class="logo" ><h2 onclick="location.href='{{ url_for('home.index') }}'"><span></span>CONNECT PAYMENTS</h2></div>
         <nav class="slide">
         <ul>
-            <li><a href="{{ url_for('admin.admin_home') }}">Home</a></li>
-            <li><a href="{{ url_for('admin.student_details') }}">Student Details</a></li>
-            <li><a href="{{ url_for('canteen.dashboard') }}">Canteen</a></li>
+            <li><a class="name" href="#"> Hello,{{ name }} </a></li>
            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
         </ul>
     </nav>
@@ -28,13 +26,9 @@
 
 </header>
 <body>
-{% block fee_admin %}
+{% block home %}
 {% endblock %}
-{% block student_details %}
+{% block fee %}
 {% endblock %}
-{% block student_reg %}
-{% endblock %}
-{% block ad_fee_det %}
-{% endblock  %}
 </body>
 </html>

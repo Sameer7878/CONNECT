@@ -337,12 +337,12 @@ def pay():
         amount = request.form['ramount']
         fee_name=request.form['fee-type']
         date1 = date.today()
-        return render_template('pay.html', amount=amount, date=date1, fee_name=fee_name)
+        return render_template('options.html', amount=amount, date=date1, fee_name=fee_name)
     else:
         amount = request.args.get('amount')
         tr_date = date.today()
         fee_type = request.args.get('fee_name')
-        return render_template('pay.html', amount=amount, date=tr_date,fee_name=fee_type)
+        return render_template('options.html', amount=amount, date=tr_date,fee_name=fee_type)
 
 
 @Fee_app.route('/updating', methods=[ 'POST', 'GET' ])
