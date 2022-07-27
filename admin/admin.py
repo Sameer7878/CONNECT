@@ -21,7 +21,7 @@ def admin_home():
         admin_data = cur.fetchall()
         con.close()
 
-        return render_template('admin/admin.html', status1=admin_data)
+        return render_template('admin/fee_admin.html', status1=admin_data)
     else:
         abort(404)
 
@@ -50,7 +50,7 @@ def search():
         admin_data = cur.fetchall()
         print(admin_data)
         con.close()
-        return render_template('admin/admin.html', status1=admin_data)
+        return render_template('admin/fee_admin.html', status1=admin_data)
     return redirect(url_for('admin.admin_home'))
 
 
@@ -164,8 +164,8 @@ def accept():
 
 @admin.route('/accepted/')
 def accepted():
-    if not session.get('name'):
-        return redirect('login.login1')
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     con = sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -177,12 +177,12 @@ def accepted():
     cur.execute("SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.STATUS=1 and STATUS.ADMIN_TYPE=0;")
     data = cur.fetchall()
     con.close()
-    return render_template('admin/admin.html', status1=data)
+    return render_template('admin/fee_admin.html', status1=data)
 
 @admin.route('/rejected/')
 def rejected():
-    if not session.get('name'):
-        return redirect('login.login1')
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     con = sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -194,12 +194,17 @@ def rejected():
     cur.execute("SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.STATUS=2 and STATUS.ADMIN_TYPE=0;")
     data = cur.fetchall()
     con.close()
-    return render_template('admin/admin.html', status1=data)
+    return render_template('admin/fee_admin.html', status1=data)
+
+@admin.route('/student_details/')
+def student_details():
+    return render_template('admin/student_details.html')
+
 
 @admin.route('/student_register/')
 def stureg():
-    if not session.get('name'):
-        return redirect('login.login1')
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     con=sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -208,9 +213,55 @@ def stureg():
 
                 )
     cur=con.cursor()
-    cur.execute('SELECT STUDENT_REG.ROWID,STUDENT_INFO.NAME, STUDENT_REG.ROLLNO,STUDENT_INFO.CLASS,'
-                'STUDENT_INFO.ACADEMIC,STUDENT_REG.STATUS FROM STUDENT_REG INNER JOIN STUDENT_INFO  on '
-                'STUDENT_REG.ROLLNO = STUDENT_INFO.ROLLNO where STUDENT_REG.STATUS=0')
+    cur.execute('SELECT ROLLNO,NAME,PROFILE_LINK,STATUS FROM STUDENT_REG')
     data=cur.fetchall()
+    print(data)
     con.close()
-    return render_template('home/studentreg.html', stureg=data)
+    return render_template('admin/studentreg.html', stureg=data)
+@admin.route('/add_det/<roll>')
+def add_det(roll):
+    return render_template('admin/add_fee_det.html',roll=roll)
+@admin.route('/update_det/',methods=['POST'])
+def update_det():
+    if request.method == 'POST':
+        roll1=request.form['roll']
+        class1 = request.form['class']
+        branch = request.form['branch']
+        acd = request.form['year']
+        clg = request.form['clg']
+        clg_pd = request.form['clg_pd']
+        clg_unp = request.form['clg_unp']
+        bus = request.form['bus']
+        bus_pd = request.form['bus_pd']
+        bus_unp = request.form['bus_unp']
+        hots = request.form['hots']
+        hots_pd = request.form['hots_pd']
+        hots_unp = request.form['hots_unp']
+        exm = request.form['exm']
+        exm_pd = request.form['exm_pd']
+        exm_unp = request.form['exm_unp']
+        oth = request.form['oth']
+        oth_pd = request.form['oth_pd']
+        oth_unp = request.form['oth_unp']
+        con = sql.connect(
+            host="127.0.0.1",
+            user="root",
+            password="password",
+            database="MINI_PROJECT"
+
+        )
+        cur = con.cursor()
+        cur.execute('SELECT * FROM STUDENT_REG WHERE ROLLNO="%s";'%(roll1,))
+        data=cur.fetchone()
+        cur.execute("INSERT INTO LOGIN VALUES('%s','%s','%s')"%(data[0],data[1],data[4]))
+        cur.execute(
+            'INSERT INTO STUDENT_INFO(ROLLNO,NAME,ACADEMIC,CLASS,SECTION,GENDER,PROFILE_LINK) VALUES ("%s","%s","%s","%s","%s","%s","%s")'%(roll1,data[2],acd,class1,branch,data[3],data[6]))
+        cur.execute('INSERT INTO COLLEGE_FEE VALUES ("%s","%s","%s","%s")'%(roll1,clg,clg_pd,clg_unp))
+        cur.execute('INSERT INTO BUS_FEE VALUES ("%s","%s","%s","%s")' % (roll1, bus, bus_pd, bus_unp))
+        cur.execute('INSERT INTO HOSTEL_FEE VALUES ("%s","%s","%s","%s")' % (roll1, hots, hots_pd, hots_unp))
+        cur.execute('INSERT INTO EXAM_FEE VALUES ("%s","%s","%s","%s")' % (roll1, exm, exm_pd, exm_unp))
+        cur.execute('INSERT INTO OTHER_FEE VALUES ("%s","%s","%s","%s")' % (roll1, oth, oth_pd, oth_unp))
+        cur.execute('UPDATE STUDENT_REG SET STATUS="1" WHERE ROLLNO="%s"'%(roll1,))
+        con.commit()
+        con.close()
+        return redirect(url_for('admin.stureg'))

@@ -13,29 +13,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0 maximum-scale=1, minimum-scale=1"
     />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='canteen/css/main.css') }}" />
     <title>Canteen Management</title>
     <script>
-      var user = '{{request.user}}'
-
-      function getToken(name) {
-          let cookieValue = null;
-          if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-              const cookie = cookies[i].trim();
-              // Does this cookie string begin with the name we want?
-              if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-              }
-            }
-          }
-          return cookieValue;
-        }
-        const csrftoken = getToken('csrftoken');
-
 
         //Create cart/cookies(Guest user)
       function getCookie(name) {
@@ -75,12 +55,10 @@
     </style>
   </head>
   <body>
-  <header>
-      <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container1">
-        <div class="logo" ><h2><span></span>CONNECT CANTEEN</h2></div>
-        <nav class="slide" >
-            <button
+ <!-- <header>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+          <div class="logo" ><h2><span></span>CONNECT CANTEEN</h2></div>
+      <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -91,17 +69,57 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul  class="navbar-nav mr-auto">
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            {% if user %}
+          <span class ='msg'>Hello,{{ name }} </span>
+          <a href="{{ url_for('Fee_app.pay',amount=200,fee_name='Canteen')}}" class="butn my-2 my-sm-0">Wallet
+          <span style="border: tomato solid 2px; border-radius: 10px; padding: 2px;">{{ wallet_bal }}</span></a>
+                <a href="{{ url_for('canteen.cart') }}">
+            <img id="cart-icon" alt="Cart_Icon" src="../../static/canteen/images/cart.png" />
+          </a>
+          <p id="cart-total">0</p>
+          <a href="{{ url_for('Fee_app.signout') }}" class="my-2 my-sm-0">Sign Out</a>
+              {% else %}
+            <a href="{{ url_for('Fee_app.signout') }}" class="my-2 my-sm-0">Sign Out</a>
+            {% endif %}
+        </div>
+      </div>
+    </nav>
+  </header>-->
+ <header>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container1">
+    <div class="logo" ><h2 onclick="location.href='{{ url_for('home.index') }}'"><span></span>CONNECT CANTEEN</h2></div>
+        <nav class="slide" >
+            <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul>
+            {% if user %}
             <li><a class="name" href="#"> Hello,{{ name }} </a></li>
             <li><a href="{{ url_for('Fee_app.pay',amount=200,fee_name='Canteen')}}">Wallet
             <span style="border: tomato solid 2px; border-radius: 10px; padding: 2px;">{{ wallet_bal }}</span></a></li>
-           <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
             <li><div class="form-inline">
                 <a href="{{ url_for('canteen.cart') }}">
                     <img id="cart-icon" src="../../static/canteen/images/cart.png" /></a>
                     <p id="cart-total">0</p>
             </div></li>
+            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
+            {% else %}
+            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
+            {% endif %}
         </ul>
             </div>
     </nav>
@@ -125,9 +143,9 @@
 
     {%block cart%}
     {% endblock %}
-
     {%block checkout%}
     {% endblock %}
+  {% if not user %}
   {% block d %}
   {% endblock %}
   {% block view_product %}
@@ -138,6 +156,7 @@
   {% endblock %}
   {% block add_product %}
   {% endblock %}
+  {% endif %}
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -158,3 +177,40 @@
     <script type="text/javascript" src="../../static/canteen/js/cart.js"></script>
   </body>
 </html>
+<!--<header>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container1">
+        <nav class="slide" >
+            <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul>
+            {% if user %}
+            <li><a class="name" href="#"> Hello,{{ name }} </a></li>
+            <li><a href="{{ url_for('Fee_app.pay',amount=200,fee_name='Canteen')}}">Wallet
+            <span style="border: tomato solid 2px; border-radius: 10px; padding: 2px;">{{ wallet_bal }}</span></a></li>
+            <li><div class="form-inline">
+                <a href="{{ url_for('canteen.cart') }}">
+                    <img id="cart-icon" src="../../static/canteen/images/cart.png" /></a>
+                    <p id="cart-total">0</p>
+            </div></li>
+            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
+            {% else %}
+            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
+            {% endif %}
+        </ul>
+            </div>
+    </nav>
+    </div>
+      </nav>
+
+  </header>-->

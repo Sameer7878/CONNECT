@@ -48,7 +48,13 @@
   font-size:18px;
   line-height:1.6;
 }
-
+.center-column {
+        width: 700px;
+        margin: 20px auto;
+        background-color: white;
+        border-radius: 3px;
+        box-shadow: 6px 2px 30px 0px rgba(168, 68, 102, 0.75);
+    }
 .footer-basic li {
   padding:0 10px;
 }

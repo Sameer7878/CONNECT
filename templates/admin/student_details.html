@@ -1,0 +1,10 @@
+{% extends 'admin/admin.html' %}
+{% block student_details %}
+    <div id="container">
+    <button class="btn" onclick="location.href='{{ url_for('admin.stureg') }}'"><span class="btnf">Student Registrations</span></button>
+    <button class="btn" onclick="location.href='#'"><span class="btnf">Set Dues</span></button>
+    <button class="btn" onclick="location.href='#'"><span class="btnf">Promote Students</span></button>
+    <button class="btn" onclick="location.href='#'"><span class="btnf">Make Announcements</span></button>
+    <button class="btn" onclick="location.href='#'"><span class="btnf">Status of Student Dues</span></button>
+</div>
+{% endblock %}

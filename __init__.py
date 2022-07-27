@@ -3,12 +3,14 @@ import os
 from Fee_Pay.Fee_Pay import Fee_app
 from Registration.login import login
 from Registration.home import home
+from Registration.registration import register
 from Payment.status import status
 from admin.admin import admin
 from Canteen.Canteen import canteen
 
 app = Flask(__name__)
 app.register_blueprint(login)
+app.register_blueprint(register,url_prefix='/register/')
 app.register_blueprint(canteen,url_prefix='/canteen/')
 app.register_blueprint(admin,url_prefix='/admin/')
 app.register_blueprint(home,url_prefix='/index/')

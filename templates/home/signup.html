@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBKR Connect</title>
+
+  <!-- add favicon -->
+  <link rel="icon" type="image/png" href="../../static/home/img/favicon.png">
+
+  <!-- add css stylesheet -->
+  <link rel="stylesheet" type="text/css" href="../../static/home/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../static/home/css/mquery.css">
+
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+</head>
+<body>
+
+  <!-- Code the whole project so you will be able to learn the things that I have shown to the video: https://youtu.be/TsQAlgXuzC8 -->
+
+  <!-- header markup -->
+
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h2 onclick="location.href='{{ url_for('home.index') }}'"><span></span>CONNECT</h2>
+      </div>
+      <nav class="slide">
+        <!--<ul>
+          <li class="dropdown">
+            <a>Services</a>
+            <div class="dropdown-content">
+              <a href="#">Fee Payments</a>
+              <a href="#">Canteen orders</a>
+              <a href="#">Result</a>
+              <a href="#">Accademic</a>
+            </div>
+          </li>
+
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>-->
+
+        <div class="cta">
+          <button class="btn btn-full" onclick="location.href='{{ url_for('login.login1') }}'">Sign in</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- hero section markup -->
+
+  <section class="hero">
+    <div class="container">
+      <div class="mid">
+        <div class="desc">
+          <h1>Sign-up</h1><br>
+
+        <form id="reg-form" action="{{ url_for('register.upload_data') }}" method="post" enctype="multipart/form-data">
+          <div class="form-field">
+            <input type="text" id="roll" name="roll" oninput="getmail()" placeholder="Roll No" maxlength="10" required/>
+          </div>
+            <div class="form-field">
+            <input type="Name" placeholder="Name" id="name" name="name" required readonly/>
+          </div>
+            <div class="form-field">
+            <select name="gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <input type="email" name="mail" id="email" placeholder="Email" required readonly/>
+          </div>
+            <div class="form-field">
+            <input id="file" type="file" name="file" accept="image/png, image/jpg, image/gif, image/jpeg" name="img" style="cursor: pointer;"/>
+          </div>
+          <div class="form-field">
+            <input type="password" id="pass1" name=passw placeholder="Password" required/>
+          </div>
+          <div class="form-field">
+            <input type="password" id="pass2" oninput="checkpass(this.value)" placeholder="Re-Enter Password" required/><br>
+          </div>
+            <span ><small id="msg"></small></span>
+          
+          <div class="form-field">
+            <button class="btn" onclick="checkall()">Sign Up</button>
+              <a href="{{ url_for('login.login1') }}">Already registered?Sigin</a>
+          </div>
+        </form>
+      </div>
+
+        <div class="placeholder">
+          <img src="../../static/home/img/gummy-coding.png">
+        </div>
+      </div>
+    </div>
+
+  <!-- add javascript file -->
+  <script type="text/javascript" src="../../static/home/js/script.js"></script>
+  </section>
+</body>
+<script>
+    let timer;
+      const input = document.querySelector('#roll');
+      input.addEventListener('keyup', function (e) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          getname(this.value);
+        }, 2000);
+      });
+    function getmail(){
+        let roll=document.getElementById('email').value;
+        document.getElementById('email').value=document.getElementById('roll').value+'@nbkrist.org';
+    }
+    function getname(roll) {
+        console.log('fuction start')
+        console.log(roll)
+
+    var url = '/register/GetName/'
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'roll':roll})
+    })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data)
+            document.getElementById('name').value=data.roll;
+        });
+
+}
+function checkpass(val){
+        if(document.getElementById('pass1').value!==val){
+            document.getElementById('msg').style.color='red';
+            document.getElementById('msg').innerHTML='* Password Doesnot match';
+        }
+        else {
+            document.getElementById('msg').style.display='none';
+        }
+
+}
+function checkall(){
+        if(document.getElementById('pass1').value===document.getElementById('msg').value) {
+            document.getElementById('reg-form').form.submit()
+        }
+        else{
+            document.getElementById('msg').style.color='red';
+            document.getElementById('msg').innerHTML='* Check All Requirements';
+        }
+}
+
+</script>
+</html>

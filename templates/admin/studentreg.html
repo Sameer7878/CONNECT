@@ -1,0 +1,72 @@
+{% extends 'admin/admin.html'%}
+{% block student_reg %}
+<div id="container">
+<div class="topnav">
+        <div class="scroll">
+            <table class="table">
+            <tr bgcolor="white">
+                <th>ROLL NO</th>
+                <th>NAME</th>
+                <th>PROFILE_LINK</th>
+                <th>ACTION</th>
+            </tr>
+                {% for data in stureg %}
+                    <tr bgcolor="#7fffd4">
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                    {% set path='../../static/admin/uploadeddata/'+data[2] %}
+                    <img id="{{ data[0] }}" src="{{ path }}" style="display: none;"/>
+                    <td><a id="view" href="#" onclick="view('{{ data[0] }}')">View</a></td>
+                        {% if data[3]=='0' %}
+                            <td><button class="btn bg-success" onclick="location.href='{{ url_for('admin.add_det',roll=data[0]) }}'" >Enter</button><button class="btn bg-danger" onclick="location.href='#'">Deny</button></td>
+                        {% else %}
+                            <td class="bg-success">Entered</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+</div>
+<div class="footer-basic">
+        <footer>
+            <p class="copyright">IT Batch © 2021</p>
+        </footer>
+</div>
+</div>
+    <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <img id="trans-img" style="width: 300px; border-radius: 10px;">
+  </div>
+
+</div>
+<script>
+function  view(link){
+    console.log(link)
+    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("myModal");
+    var tranImg=document.getElementById('trans-img');
+    var tran=document.getElementById(link)
+    var srclink=tran.src;
+    console.log(srclink)
+    tranImg.src=srclink;
+    modal.style.display = "block";
+    span.onclick = function() {
+  modal.style.display = "none";
+  tranImg.src='';
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    tranImg.src='';
+  }
+}
+}
+
+// When the user clicks on <span> (x), close the modal
+</script>
+{% endblock %}

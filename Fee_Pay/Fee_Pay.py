@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, redirect, session, abort,Blueprint
+from flask import url_for, render_template, request, redirect, session, abort,Blueprint
 import os
 from datetime import date
 from werkzeug.utils import secure_filename
@@ -53,12 +53,12 @@ def home():
                 'FROM LOGIN INNER JOIN STUDENT_INFO ON LOGIN.ROLLNO = STUDENT_INFO.ROLLNO WHERE '
                 'LOGIN.ROLLNO= "%s"' % roll_no)
     basic_data = cur.fetchone()
+    con.close()
     name = basic_data[ 1 ]
     academic = basic_data[ 2 ]
     class1 = basic_data[ 3 ]
     section = basic_data[ 4 ]
     gender = basic_data[ 5 ]
-    con.close()
     return redirect(url_for('Fee_app.index'))
     #return render_template('')
 
@@ -73,7 +73,7 @@ def forgot():
 def index():
     if not session.get('name'):
         return redirect(url_for('login.login1'))
-    return render_template('feepay/PayFee.html', name=name)
+    return render_template('feepay/home.html', name=name)
 
 '''@Fee_app.route('/register', methods=[ "POST", "GET" ])
 def register():
@@ -107,9 +107,9 @@ def register():
 
 @Fee_app.route('/College Fee', methods=[ 'GET', 'POST' ])
 def college_fee():
-    roll_no1 = roll_no
     if not session.get('name'):
         return redirect(url_for('login.login1'))
+    roll_no1=session['name']
     con = sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -122,10 +122,11 @@ def college_fee():
                 'STUDENT_INFO.SECTION,STUDENT_INFO.GENDER,STUDENT_INFO.profile_link,'
                 ' COLLEGE_FEE.TOTAL_AMOUNT,COLLEGE_FEE.PAID_AMOUNT,'
                 'COLLEGE_FEE.DUE_AMOUNT FROM LOGIN INNER JOIN STUDENT_INFO ON LOGIN.ROLLNO = STUDENT_INFO.ROLLNO '
-                'INNER JOIN COLLEGE_FEE ON LOGIN.ROLLNO = COLLEGE_FEE.ROLLNO WHERE LOGIN.ROLLNO= "%s"'%(roll_no1))
+                'INNER JOIN COLLEGE_FEE ON LOGIN.ROLLNO = COLLEGE_FEE.ROLLNO WHERE LOGIN.ROLLNO="%s"'%(roll_no1))
 
     data = cur.fetchone()
-    cur.execute("SELECT STATUS.STATUS,COLLEGE_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM COLLEGE_FEE INNER JOIN STATUS ON STATUS.ROLLNO=COLLEGE_FEE.ROLLNO WHERE STATUS.CATEGORY='College Fee' AND  STATUS.STATUS=0")
+    print(data)
+    cur.execute("SELECT STATUS.STATUS,COLLEGE_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM COLLEGE_FEE INNER JOIN STATUS ON STATUS.ROLLNO=COLLEGE_FEE.ROLLNO WHERE STATUS.CATEGORY='College Fee' AND  STATUS.STATUS=0 AND STATUS.ROLLNO='%s'"%(roll_no1,))
     fee_details=cur.fetchall()
     con.close()
     print(data)
@@ -135,7 +136,7 @@ def college_fee():
     year = str(data[2])
     gender = data[5]
     section = data[4]
-    profile_link = '../static/' + data[6]
+    profile_link = data[6]
     tamount = data[7]
     pamount = data[8]
     if fee_details!=[]:
@@ -146,16 +147,16 @@ def college_fee():
         pamount_str=str(pamount)
 
     ramount = data[9]
-    return render_template('feepay/clgfee.html', name=name, rollno=rollno, class1=class1, year=year, gender=gender,
+    return render_template('feepay/fee.html', name=name,cat_img='feepay/images/univf80.png',cat_name='College Fee', rollno=rollno, class1=class1, year=year, gender=gender,
                            section=section, tamount=tamount, pamount=pamount_str, ramount=ramount,
                            profile_link=profile_link)
 
 
 @Fee_app.route('/bus_fee', methods=[ 'GET', 'POST' ])
 def bus_fee():
-    roll_no1 =roll_no
     if not session.get('name'):
         return redirect('login.login1')
+    roll_no1 = session['name']
     con =sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -171,7 +172,7 @@ def bus_fee():
                 'INNER JOIN BUS_FEE ON LOGIN.ROLLNO = BUS_FEE.ROLLNO WHERE LOGIN.ROLLNO="%s"'%(roll_no1))
     data = cur.fetchone()
     print(data)
-    cur.execute("SELECT STATUS.STATUS,COLLEGE_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM COLLEGE_FEE INNER JOIN STATUS ON STATUS.ROLLNO=COLLEGE_FEE.ROLLNO WHERE STATUS.CATEGORY='Bus Fee' AND  STATUS.STATUS=0")
+    cur.execute("SELECT STATUS.STATUS,BUS_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM BUS_FEE INNER JOIN STATUS ON STATUS.ROLLNO=BUS_FEE.ROLLNO WHERE STATUS.CATEGORY='Bus Fee' AND  STATUS.STATUS=0 AND STATUS.ROLLNO='%s'"%(roll_no1,))
     fee_details=cur.fetchall()
     con.close()
     name = data[1]
@@ -180,7 +181,7 @@ def bus_fee():
     year = str(data[2])
     gender = data[5]
     section = data[4]
-    profile_link = '../static/' + data[6]
+    profile_link =  data[6]
     tamount = data[7]
     pamount = data[ 8 ]
     if fee_details != [ ]:
@@ -191,16 +192,16 @@ def bus_fee():
         pamount_str = str(pamount)
 
     ramount = data[ 9 ]
-    return render_template('feepay/busfee.html', name=name, rollno=rollno, class1=class1, year=year, gender=gender,
+    return render_template('feepay/fee.html', name=name,cat_img='feepay/images/busf1.png',cat_name='Bus Fee', rollno=rollno, class1=class1, year=year, gender=gender,
                            section=section, tamount=tamount, pamount=pamount_str, ramount=ramount,
                            profile_link=profile_link)
 
 
 @Fee_app.route('/exam_fee', methods=[ 'GET', 'POST', 'PUT' ])
 def exam_fee():
-    roll_no1 = roll_no
     if not session.get('name'):
         return redirect('login.login1')
+    roll_no1 = session['name']
     con = sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -215,7 +216,7 @@ def exam_fee():
                 'EXAM_FEE.DUE_AMOUNT FROM LOGIN INNER JOIN STUDENT_INFO ON LOGIN.ROLLNO = STUDENT_INFO.ROLLNO '
                 'INNER JOIN EXAM_FEE ON LOGIN.ROLLNO = EXAM_FEE.ROLLNO WHERE LOGIN.ROLLNO= "%s"'%(roll_no1))
     data = cur.fetchone()
-    cur.execute("SELECT STATUS.STATUS,COLLEGE_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM COLLEGE_FEE INNER JOIN STATUS ON STATUS.ROLLNO=COLLEGE_FEE.ROLLNO WHERE STATUS.CATEGORY='Exam Fee' AND  STATUS.STATUS=0")
+    cur.execute("SELECT STATUS.STATUS,EXAM_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM EXAM_FEE INNER JOIN STATUS ON STATUS.ROLLNO=EXAM_FEE.ROLLNO WHERE STATUS.CATEGORY='Exam Fee' AND  STATUS.STATUS=0 AND STATUS.ROLLNO='%s'"%(roll_no1,))
     fee_details=cur.fetchall()
     con.close()
     name = data[1]
@@ -224,7 +225,7 @@ def exam_fee():
     year = str(data[2])
     gender = data[5]
     section = data[4]
-    profile_link = '../static/' + data[6]
+    profile_link = data[6]
     tamount = data[7]
     pamount = data[ 8 ]
     if fee_details != [ ]:
@@ -235,16 +236,16 @@ def exam_fee():
         pamount_str = str(pamount)
 
     ramount = data[ 9 ]
-    return render_template('feepay/examfee.html', name=name, rollno=rollno, class1=class1, year=year, gender=gender,
+    return render_template('feepay/fee.html', name=name,cat_img='feepay/images/examf.png',cat_name='Exam Fee', rollno=rollno, class1=class1, year=year, gender=gender,
                            section=section, tamount=tamount, pamount=pamount_str, ramount=ramount,
                            profile_link=profile_link)
 
 
 @Fee_app.route('/hostel_fee')
 def hostel_fee():
-    roll_no1 =roll_no
     if not session.get('name'):
         return redirect('login.login1')
+    roll_no1 = session['name']
     con = sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -259,7 +260,7 @@ def hostel_fee():
                 'HOSTEL_FEE.DUE_AMOUNT FROM LOGIN INNER JOIN STUDENT_INFO ON LOGIN.ROLLNO = STUDENT_INFO.ROLLNO '
                 'INNER JOIN HOSTEL_FEE ON LOGIN.ROLLNO = HOSTEL_FEE.ROLLNO WHERE LOGIN.ROLLNO="%s"'%(roll_no1))
     data = cur.fetchone()
-    cur.execute("SELECT STATUS.STATUS,COLLEGE_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM COLLEGE_FEE INNER JOIN STATUS ON STATUS.ROLLNO=COLLEGE_FEE.ROLLNO WHERE STATUS.CATEGORY='Hostel Fee' AND  STATUS.STATUS=0")
+    cur.execute("SELECT STATUS.STATUS,HOSTEL_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM HOSTEL_FEE INNER JOIN STATUS ON STATUS.ROLLNO=HOSTEL_FEE.ROLLNO WHERE STATUS.CATEGORY='Hostel Fee' AND  STATUS.STATUS=0 AND STATUS.ROLLNO='%s'"%(roll_no1,))
     fee_details=cur.fetchall()
     con.close()
     name = data[1]
@@ -268,7 +269,7 @@ def hostel_fee():
     year = str(data[2])
     gender = data[5]
     section = data[4]
-    profile_link = '../static/' + data[6]
+    profile_link = data[6]
     tamount = data[7]
     pamount = data[ 8 ]
     if fee_details != [ ]:
@@ -279,16 +280,16 @@ def hostel_fee():
         pamount_str = str(pamount)
 
     ramount = data[ 9 ]
-    return render_template('feepay/hostelfee.html', name=name, rollno=rollno, class1=class1, year=year, gender=gender,
+    return render_template('feepay/fee.html', name=name,cat_img='feepay/images/hostelf.png',cat_name='Hostel Fee', rollno=rollno, class1=class1, year=year, gender=gender,
                            section=section, tamount=tamount, pamount=pamount_str, ramount=ramount,
                            profile_link=profile_link)
 
 
 @Fee_app.route('/other_fee')
 def other_fee():
-    roll_no1 =roll_no
     if not session.get('name'):
         return redirect('login.login1')
+    roll_no1 = session['name']
     con = sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -303,7 +304,7 @@ def other_fee():
                 'OTHER_FEE.DUE_AMOUNT FROM LOGIN INNER JOIN STUDENT_INFO ON LOGIN.ROLLNO = STUDENT_INFO.ROLLNO '
                 'INNER JOIN OTHER_FEE ON LOGIN.ROLLNO = OTHER_FEE.ROLLNO WHERE LOGIN.ROLLNO = "%s"'%(roll_no1))
     data = cur.fetchone()
-    cur.execute("SELECT STATUS.STATUS,COLLEGE_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM COLLEGE_FEE INNER JOIN STATUS ON STATUS.ROLLNO=COLLEGE_FEE.ROLLNO WHERE STATUS.CATEGORY='Other Fee' AND  STATUS.STATUS=0")
+    cur.execute("SELECT STATUS.STATUS,OTHER_FEE.DUE_AMOUNT,STATUS.AMOUNT FROM OTHER_FEE INNER JOIN STATUS ON STATUS.ROLLNO=OTHER_FEE.ROLLNO WHERE STATUS.CATEGORY='Other Fee' AND  STATUS.STATUS=0 AND STATUS.ROLLNO='%s'"%(roll_no1,))
     fee_details=cur.fetchall()
     con.close()
     name = data[1]
@@ -312,7 +313,7 @@ def other_fee():
     year = str(data[2])
     gender = data[5]
     section = data[4]
-    profile_link = '../static/' + data[6]
+    profile_link = data[6]
     tamount = data[7]
     pamount = data[ 8 ]
     if fee_details != [ ]:
@@ -323,7 +324,7 @@ def other_fee():
         pamount_str = str(pamount)
 
     ramount = data[ 9 ]
-    return render_template('feepay/otherfee.html', name=name, rollno=rollno, class1=class1, year=year, gender=gender,
+    return render_template('feepay/fee.html', name=name,cat_img='feepay/images/otherf.png',cat_name='Other Fee', rollno=rollno, class1=class1, year=year, gender=gender,
                            section=section, tamount=tamount, pamount=pamount_str, ramount=ramount,
                            profile_link=profile_link)
 

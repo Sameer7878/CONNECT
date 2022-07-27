@@ -6,5 +6,6 @@ con = sql.connect(
         database="MINI_PROJECT"
     )
 cur = con.cursor()
-cur.execute('SELECT * FROM ITEM_ORDERS WHERE STATUS=0')
-print(cur.fetchall())
+cur.execute("alter table STUDENT_INFO modify NAME varchar(60) null;")
+con.commit()
+con.close()

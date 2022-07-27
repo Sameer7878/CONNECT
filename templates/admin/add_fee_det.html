@@ -1,0 +1,120 @@
+{% extends 'admin/admin.html' %}
+{% block ad_fee_det %}
+
+
+<body>
+    <br>
+    <div style="width: 700px;margin: 20px auto;background-color: white;border-radius: 3px;box-shadow: 6px 2px 30px 0px rgba(168, 68, 102, 0.75);">
+        <div class="card card-body">
+            <form  action="{{ url_for('admin.update_det') }}" method="post">
+                <div class="form-group">
+                    ROLL NO
+                    <input type="text" name="roll" value="{{ roll }}" class="form-control" id="id_roll" readonly>
+                </div>
+                <div class="form-group">
+                    Class
+                    <select name="class" class="form-control" required id="id_class">
+                        <option value="INFORMATION TECHNOLOGY" selected>IT</option>
+                        <option value="COMPUTER SCIENCE ENGINEERING">CSE</option>
+                        <option value="ELECTRONIC ELECTRICAL ENGINEERING">EEE</option>
+                        <option value="ELECTRONIC COMMUNICATION ENGINEERING">ECE</option>
+                        <option value="MECHANICAL ENGINEERING">ME</option>
+                        <option value="CIVIL ENGINEERING">CE</option>
+                        <option value="ARTIFICIAL INTELLIGENCE AND DATASCIENCE">AIDS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Branch
+                    <select name="branch" class="form-control" required id="id_branch">
+                        <option value="-" selected>-</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Academic Year
+                    <select name="year" class="form-control" required id="id_year">
+                        <option value='I'>I</option>
+                        <option value="II">II</option>
+                        <option value="III">III</option>
+                        <option value="IV">IV</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    College Fee
+                    <input type="number" name="clg" value="70000" class="form-control" id="id_clg">
+                </div>
+                <div class="form-group">
+                    Paid Fee
+                    <input type="number" name="clg_pd" value="" oninput="cal_unp(this.id)" class="form-control" id="id_clg_pd">
+                </div>
+                <div class="form-group">
+                    Unpaid Fee
+                    <input type="number" name="clg_unp" value="70000" class="form-control" id="id_clg_up">
+                </div>
+                <div class="form-group">
+                    Bus Fee
+                    <input type="number" name="bus" value="0" class="form-control" id="id_bus">
+                </div>
+                <div class="form-group">
+                    Paid Fee
+                    <input type="number" name="bus_pd" oninput="cal_unp(this.id)" value="0" class="form-control" id="id_bus_pd">
+                </div>
+                <div class="form-group">
+                    Unpaid Fee
+                    <input type="number" name="bus_unp" value="0" class="form-control" id="id_bus_up">
+                </div>
+                <div class="form-group">
+                    Hostel Fee
+                    <input type="number" name="hots" value="0" class="form-control" id="id_hots">
+                </div>
+                <div class="form-group">
+                    Paid Fee
+                    <input type="number" name="hots_pd" oninput="cal_unp(this.id)" value="0" class="form-control" id="id_hots_pd">
+                </div>
+                <div class="form-group">
+                    Unpaid Fee
+                    <input type="number" name="hots_unp" value="0" class="form-control" id="id_host_up">
+                </div>
+                <div class="form-group">
+                    Exam Fee
+                    <input type="number" name="exm" value="1200" class="form-control" id="id_exm">
+                </div>
+                <div class="form-group">
+                    Paid Fee
+                    <input type="number" name="exm_pd" value="0" oninput="cal_unp(this.id)" class="form-control" id="id_exm_pd">
+                </div>
+                <div class="form-group">
+                    Unpaid Fee
+                    <input type="number" name="exm_unp" value="1200" class="form-control" id="id_exm_up">
+                </div>
+                <div class="form-group">
+                    Other Fee
+                    <input type="number" name="oth" value="1850" class="form-control" id="id_oth">
+                </div>
+                <div class="form-group">
+                    Paid Fee
+                    <input type="number" name="oth_pd" value="0" oninput="cal_unp(this.id)" class="form-control" id="id_oth_pd">
+                </div>
+                <div class="form-group">
+                    Unpaid Fee
+                    <input type="number" name="oth_unp" value="1850" class="form-control" id="id_oth_up">
+                </div>
+                <hr>
+                <input class="btn btn-sm btn-success" type="submit" name="submit">
+            </form>
+        </div>
+    </div>
+</body>
+    <script>
+    function cal_unp(id){
+        var uid=id.replace('pd','up');
+        var oid=id.replace('_pd','');
+        let tot=document.getElementById(oid).value;
+        let pd=document.getElementById(id).value
+        document.getElementById(uid).value=tot-pd;
+    }
+
+    </script>
+{% endblock %}

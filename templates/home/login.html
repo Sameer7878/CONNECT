@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NBKR Connect</title>
+  <title>CONNECT</title>
 
   <!-- add favicon -->
   <link rel="icon" type="image/png" href="{{ url_for('static',filename='home/img/favicon.png') }}">
@@ -24,7 +24,7 @@
   <header>
     <div class="container">
       <div class="logo">
-        <h2><span></span>NBKRIST Connect</h2>
+        <h2 onclick="location.href='{{ url_for('home.index') }}'"><span></span>CONNECT</h2>
       </div>
 <!--
       <nav class="slide">
@@ -53,13 +53,24 @@
   </header>
 
   <!-- hero section markup -->
-
   <section class="hero">
     <div class="container">
+
       <div class="mid">
         <div class="desc">
           <h1>Sign-in</h1><br>
-
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div id="msg" style="color: #721c24;background-color: #f8d7da;border-color: #f5c6cb; width: max-content; padding: 5px; font-size: 20px;">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" onclick="document.getElementById('msg').style.display='none';">X</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
         <form action="{{ url_for('login.verify') }}" method="post">
           <div class="form-field">
             <input type="text" placeholder="Email / Username" name="username" required/>
@@ -71,6 +82,7 @@
           
           <div class="form-field">
             <button class="btn" type="submit">Log in</button>
+              <a href="{{ url_for('register.home') }}" style="text-decoration: underline;">Register Here..</a>
           </div>
         </form>
       </div>

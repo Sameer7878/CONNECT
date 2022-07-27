@@ -24,21 +24,25 @@ def home():
     cur = con.cursor()
     if not session.get('name'):
         return redirect(url_for('login.login1'))
-    print('kjjjj')
     username=session['name']
     cur.execute(f"SELECT ROLLNO,NAME,wallet FROM STUDENT_INFO WHERE ROLLNO='{username}'")
     data =cur.fetchone()
+    con.close()
     username=data[0]
     name=data[1]
     wallet_bal=data[2]
-    return redirect('menu')
-@canteen.route('/menu')
+    return redirect(url_for('canteen.menu'))
+@canteen.route('/menu/')
 def menu():
-    if not(name and wallet_bal):
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
+    if not(name or wallet_bal):
         return redirect('/')
-    return render_template('canteen/menu.html',name=name,wallet_bal=wallet_bal)
+    return render_template('canteen/menu.html',name=name,wallet_bal=wallet_bal,user=True)
 @canteen.route('/breakfast')
 def breakfast():
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -51,9 +55,11 @@ def breakfast():
     breakfast_items=cur.fetchall()
     con.close()
 
-    return render_template('canteen/breakfast.html',items=breakfast_items,name=name,wallet_bal=wallet_bal)
+    return render_template('canteen/breakfast.html',items=breakfast_items,name=name,wallet_bal=wallet_bal,user=True)
 @canteen.route('/dinner')
 def dinner():
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -65,9 +71,11 @@ def dinner():
     cur.execute("SELECT * FROM ITEMS WHERE ITEM_CATEGORY='DINNER'")
     dinner_items = cur.fetchall()
     con.close()
-    return render_template('canteen/dinner.html',items=dinner_items,name=name,wallet_bal=wallet_bal)
+    return render_template('canteen/dinner.html',items=dinner_items,name=name,wallet_bal=wallet_bal,user=True)
 @canteen.route('/lunch')
 def lunch():
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -79,9 +87,11 @@ def lunch():
     cur.execute("SELECT * FROM ITEMS WHERE ITEM_CATEGORY='LUNCH'")
     lunch_items=cur.fetchall()
     con.close()
-    return render_template('canteen/lunch.html',items=lunch_items,name=name,wallet_bal=wallet_bal)
+    return render_template('canteen/lunch.html',items=lunch_items,name=name,wallet_bal=wallet_bal,user=True)
 @canteen.route('/special')
 def special():
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -93,9 +103,11 @@ def special():
     cur.execute("SELECT * FROM ITEMS WHERE ITEM_CATEGORY='SPECIAL'")
     spl_items = cur.fetchall()
     con.close()
-    return render_template('canteen/todayspl.html',items=spl_items,name=name,wallet_bal=wallet_bal)
+    return render_template('canteen/todayspl.html',items=spl_items,name=name,wallet_bal=wallet_bal,user=True)
 @canteen.route('/cart')
 def cart():
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -119,14 +131,18 @@ def cart():
             cart_dict[item_data]=quan['quantity']
             cart.cart_items.append(cart_dict)
         con.close()
-        return render_template('canteen/cart.html',items=cart.cart_items,tot_quan=cart.tot_quan,tot_price=cart.tot_price,name=name,wallet_bal=wallet_bal)
+        return render_template('canteen/cart.html',items=cart.cart_items,tot_quan=cart.tot_quan,tot_price=cart.tot_price,name=name,wallet_bal=wallet_bal,user=True)
 @canteen.route('/checkout/')
 def checkout():
-    return render_template('canteen/checkout.html',items=cart.cart_items,tot_price=cart.tot_price,tot_quan=cart.tot_quan,name=name,wallet_bal=wallet_bal)
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
+    return render_template('canteen/checkout.html',items=cart.cart_items,tot_price=cart.tot_price,tot_quan=cart.tot_quan,name=name,wallet_bal=wallet_bal,user=True)
 
 
 @canteen.route('/payments/<item_list>/<tot_price>')
 def payments(item_list,tot_price):
+    if not session.get('name'):
+        return redirect(url_for('login.login1'))
     item_list=ast.literal_eval(item_list)
     items={}
     con = sql.connect(
@@ -150,14 +166,16 @@ def payments(item_list,tot_price):
         con.commit()
         con.close()
         flash(f'Order placed successfully TOKEN NO: {list(order_id)[0]}\ncheck in Status Tab',category='message')
-        return redirect(url_for('canteen.menu'))
+        return redirect(url_for('canteen.home'))
     flash('Insufficient Balance Please Add money to Wallet',category='warning')
-    return redirect(url_for('canteen.menu'))
+    return redirect(url_for('canteen.home'))
 
 
 
 @canteen.route('/dashboard/')
 def dashboard():
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     tot_orders_list=[]
     con = sql.connect(
         host="127.0.0.1",
@@ -185,10 +203,11 @@ def dashboard():
         tot_quan=sum(order[1].values())
         order.append(tot_quan)
         tot_orders_list.append(order)
-        print(tot_orders_list)
-    return render_template('canteen/dashboard.html',tot_orders=tot_orders,pen_orders=pen_orders,suc_orders=suc_orders,tot_orders_list=tot_orders_list)
+    return render_template('canteen/dashboard.html',tot_orders=tot_orders,pen_orders=pen_orders,suc_orders=suc_orders,tot_orders_list=tot_orders_list,user=False)
 @canteen.route('/View_Dishes/')
 def view_product():
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -198,9 +217,11 @@ def view_product():
     cur = con.cursor(buffered=True)
     cur.execute('SELECT * FROM ITEMS;')
     tot_products = cur.fetchall()
-    return render_template('canteen/view_product.html',tot_products=tot_products)
+    return render_template('canteen/view_product.html',tot_products=tot_products,user=False)
 @canteen.route('/update_product/<product_id>')
 def update_product(product_id):
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -210,12 +231,16 @@ def update_product(product_id):
     cur = con.cursor(buffered=True)
     cur.execute(f'SELECT * FROM ITEMS WHERE ID={product_id};')
     product = cur.fetchone()
-    return render_template('canteen/update_product.html',product=product)
+    return render_template('canteen/update_product.html',product=product,user=False)
 @canteen.route('/delete_product/<product_id>/<product_name>')
 def delete_product(product_id,product_name):
-    return render_template('canteen/delete_product.html',product_id=product_id,product_name=product_name)
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
+    return render_template('canteen/delete_product.html',product_id=product_id,product_name=product_name,user=False)
 @canteen.route('/deleting/',methods=['GET','POST'])
 def deleting():
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     if request.method=='POST':
         id=request.form['id']
         con = sql.connect(
@@ -232,6 +257,8 @@ def deleting():
 
 @canteen.route('/updating/',methods=['GET','POST'])
 def updating():
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     if request.method=='POST':
         filename=None
         id=request.form['id']
@@ -260,9 +287,13 @@ def updating():
         return redirect(url_for('canteen.view_product'))
 @canteen.route('/add_product/')
 def add_product():
-    return render_template('canteen/add_product.html')
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
+    return render_template('canteen/add_product.html',user=False)
 @canteen.route('/add',methods=['GET','POST'])
 def add():
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     if request.method=="POST":
         name = request.form["name"]
         name=name.upper()
@@ -299,6 +330,8 @@ def add():
 
 @canteen.route('/place_order/<id>')
 def place_order(id):
+    if not session.get('name') == 'ADMIN@NBKRIST.ORG':
+        return redirect(url_for('login.login1'))
     con = sql.connect(
         host="127.0.0.1",
         user="root",
@@ -310,7 +343,7 @@ def place_order(id):
     cur.execute('UPDATE STATUS SET Order_STATUS=1 WHERE TOKEN_NO="%s"'%(id,))
     con.commit()
     con.close()
-    return render_template(url_for('canteen.dashboard'))
+    return redirect(url_for('canteen.dashboard'))
 #@canteen.route('/update_item/',methods=["POST","GET"])
 '''def update_item():
     con = sql.connect(
