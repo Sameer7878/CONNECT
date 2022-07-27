@@ -4,5 +4,16 @@
     <mapping uuid="5cdc5898-ad3c-447b-8481-669ef219fad0" name="Main Mapping">
       <data-sources db="d588f3aa-34b4-4aba-9dab-ecf798e0add8" ddl="486760dc-b430-4f52-a797-18fb4a54bb72" />
     </mapping>
+    <mapping uuid="ffddf18b-0604-4189-9a73-be38f3b8f20f" name="@localhost Mapping">
+      <data-sources db="ffd2f636-720c-4dcf-a750-fe8fd53cd453" ddl="87df66ba-2199-4ff6-81c1-ca635d8b29db" />
+      <scope>
+        <node negative="1">
+          <node kind="database" negative="1">
+            <node kind="schema" negative="1" />
+          </node>
+          <node kind="schema" qname="MINI_PROJECT" />
+        </node>
+      </scope>
+    </mapping>
   </component>
 </project>

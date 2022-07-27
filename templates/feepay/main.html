@@ -23,12 +23,9 @@
 
 </header>
 <body>
-<div id="container">
-    <button class="btn" onclick="location.href='{{ url_for('Fee_app.college_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/univf80.png')}}"><span class="btnf"> College Fee</span></button>
-    <button class="btn" onclick="location.href='{{ url_for('Fee_app.bus_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/busf1.png')}}"><span class="btnf"> Bus Fee</span></button>
-    <button class="btn" onclick="location.href='{{ url_for('Fee_app.exam_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/examf.png')}}"><span class="btnf"> Exam Fee</span></button>
-    <button class="btn" onclick="location.href='{{ url_for('Fee_app.hostel_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/hostelf.png')}}"><span class="btnf"> Hostel Fee</span></button>
-    <button class="btn" onclick="location.href='{{ url_for('Fee_app.other_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/otherf.png')}}"><span class="btnf"> Others Fee</span></button>
-</div>
+{% block home %}
+{% endblock %}
+{% block fee %}
+{% endblock %}
 </body>
 </html>

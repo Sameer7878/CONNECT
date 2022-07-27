@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NBKR Connect</title>
+  <title>CONNECT</title>
 
   <!-- add favicon -->
   <link rel="icon" type="image/png" href="../../static/home/img/favicon.png">
@@ -24,7 +24,7 @@
   <header>
     <div class="container">
       <div class="logo">
-        <h2><span></span>Connect</h2>
+        <h2 onclick="location.href='{{ url_for('home.index') }}'"><span></span>Connect</h2>
       </div>
 
       <nav class="slide">
@@ -44,7 +44,7 @@
         </ul>
           {% if not name %}
         <div class="cta">
-          <button class="btn" onclick="location.href='{{ url_for('login.login1') }}'">Sign up</button>
+          <button class="btn" onclick="location.href='{{ url_for('register.home') }}'">Sign up</button>
           <button class="btn btn-full" onclick="location.href='{{ url_for('login.login1') }}'">Sign in</button>
         </div>
               {% else %}

@@ -6,8 +6,7 @@ home=Blueprint('home',__name__)
 @home.route('/')
 def index():
     if session.get('name')=='ADMIN@NBKRIST.ORG':
-        session.pop(0)
-        return render_template('home/index.html')
+        return redirect(url_for('admin.admin_home'))
     if session.get('name') :
         name=session['name']
         return render_template('home/index.html',name=name)

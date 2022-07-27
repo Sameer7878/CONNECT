@@ -1,0 +1,96 @@
+{% extends 'admin/admin.html' %}
+{% block fee_admin %}
+<div id="container">
+<div class="topnav">
+  <div class="search-container">
+    <form action="{{ url_for('admin.search') }}" method="post">
+        <label>Search</label>
+      <input type="text" placeholder="Search.." name="search" />
+        <button type="submit" class="search1"><i><img src="{{ url_for('static',filename='/feepay/images/icons8-search-30.png') }}"/></i></button>
+        <div class="header-right">
+            <a href="{{ url_for('admin.accepted') }}">Accepted</a>
+            <a href="{{ url_for('admin.rejected') }}">Rejected</a>
+            <a href="{{ url_for('admin.admin_home') }}" class="refresh"><img src="{{ url_for('static',filename='/feepay/images/icons8-refresh-40.png') }}">Refresh</a>
+        </div>
+    </form></div>
+  </div>
+        <div class="scroll">
+            <table class="table">
+            <tr bgcolor="white">
+                <th>REQUEST ID</th>
+                <th>NAME</th>
+                <th>ROLL NO</th>
+                <th>DEPT</th>
+                <th>AMOUNT</th>
+                <th>UTR_NO</th>
+                <th>CATEGORY</th>
+                <th>DATE</th>
+                <th>SCREENSHOTS</th>
+                <th>ACTION</th>
+            </tr>
+                {% for data in status1 %}
+                    <form method="post"  ><tr bgcolor="#7fffd4">
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                    <td>{{ data[2] }}</td>
+                    <td>{{ data[3] }}</td>
+                    <td>{{ data[4] }}</td>
+                    {% set path='../../static/admin/uploadeddata/'+data[9] %}
+                    <img id="{{ data[5] }}" src="{{ path }}" style="display: none;"/>
+                    <td><input id="utrno" class="urtno" type="number"  value="{{ data[5] }}" name="utrno" readonly/></td>
+                    <td>{{ data[6] }}</td>
+                    <td>{{ data[7] }}</td>
+                        <td><a id="view" href="#" onclick="view({{ data[5] }})">View</a></td>
+                        {% if data[8]==0 %}
+                            <td><button class="btn bg-success" formaction="{{url_for('admin.accept')}}" >Accept</button><button class="btn bg-danger" formaction="{{url_for('admin.deny')}}">Deny</button></td>
+                        {% elif data[8]==1 %}
+                            <td class="bg-success">Accepted<button class="btn bg-warning" formaction="{{url_for('admin.undo')}}">Undo</button></td>
+                        {% else %}
+                            <td class="bg-danger">Rejected</td>
+                        {% endif %}
+
+                    </tr></form>
+                {% endfor %}
+            </table>
+        </div>
+</div>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <img id="trans-img" style="width: 300px; border-radius: 10px;">
+      <span id='utr'></span>
+  </div>
+
+</div>
+<script>
+// Get the modal
+
+function  view(utrno){
+    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("myModal");
+    var tranImg=document.getElementById('trans-img');
+    var utr=document.getElementById('utr');
+    var transImg=document.getElementById(utrno);
+    var srclink=transImg.src;
+    tranImg.src=srclink;
+    utr.innerHTML=utrno;
+    modal.style.display = "block";
+    span.onclick = function() {
+  modal.style.display = "none";
+  tranImg.src='';
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    tranImg.src='';
+  }
+}
+}
+
+// When the user clicks on <span> (x), close the modal
+</script>
+{% endblock %}

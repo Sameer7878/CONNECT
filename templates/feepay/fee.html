@@ -1,34 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>College Fee</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../../static/feepay/images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/footer.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/home.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='feepay/styles/responsive.css')}}">
-    <script type="text/javascript" src="{{ url_for('static',filename='feepay/javascript/home.js') }}"></script>
-</head>
-<header>
-    <div class="container">
-        <div class="logo" ><h2 onclick="location.href='{{ url_for('Fee_app.index') }}'"><span></span>CONNECT PAYMENTS</h2></div>
-        <nav class="slide">
-        <ul>
-           <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
-        </ul>
-    </nav>
-    </div>
+{% extends 'feepay/main.html' %}
+{% block fee %}
 
-</header>
-
-
-<body>
 <div id="container" style="margin-left: 35%; width: max-content;">
      <div class="back">
     <a href="{{ url_for('Fee_app.index') }}" ><img style="width: 20px;" src="{{ url_for('static',filename='feepay/images/icons8-back-30.png')}}" alt="">Back</a>
     </div>
-    <button class="btn active text-center"  onclick="location.href='{{ url_for('Fee_app.college_fee') }}'"><img src="{{ url_for('static',filename='feepay/images/univf80.png')}}"><span class="btnf"> College fee</span></button>
+    <button class="btn active text-center"><img src="{{ url_for('static',filename=cat_img)}}"><span class="btnf">{{ cat_name }}</span></button>
 
 </div>
 <div class="student-profile py-4">
@@ -37,7 +14,7 @@
       <div class="col-lg-4 py-4">
         <div class="card shadow-sm">
           <div class="card-header bg-transparent text-center">
-            <img class="profile_img" src={{ profile_link }} alt="">
+            <img class="profile_img" src='../../static/admin/uploadeddata/{{ profile_link }}' alt="photo">
           </div>
         </div>
       </div>
@@ -112,9 +89,8 @@
     </div>
   </div>
 </div>
-
-</body>
-<div class="footer-basic">
+{% endblock %}
+<!--<div class="footer-basic">
         <footer>
             <div class="social">
                 <a><img src="https://img.icons8.com/fluency/48/000000/facebook-new.png"/></a>
@@ -125,5 +101,4 @@
             </div>
             <p class="copyright">IT Batch © 2021</p>
         </footer>
-    </div>
-</html>
+    </div>-->
