@@ -1,3 +1,5 @@
+{% extends 'pay.html' %}
+{% block paytm %}
 <div id="container" style="margin-left: 35%; width: max-content;">
      <div class="back">
     <a onclick="goBack()" href="#"><img style="width: 20px;" src="{{ url_for('static',filename='feepay/images/icons8-back-30.png')}}" alt="">Back</a>
@@ -63,7 +65,7 @@
 <div id="container">
         <form class="scroll" action="{{ url_for('Fee_app.updating') }}" enctype="multipart/form-data" method="post">
             <label>Enter Amount</label>
-            <input type="number" value='{{ amount }}' name="amount" required>
+            <input type="number" value='{{ amount }}' name="amount" max="{{ amount }}" required>
         <label>Enter Transaction No.</label>
         <input type="number" value="{{ number }}" name="utrno" placeholder="Enter UTR No..." required/>
             <label>Enter Date:</label>
@@ -76,3 +78,4 @@
             <p class="bg-warning w-25" style="color:red">{{ msg }}</p>
         </form>
 </div>
+{% endblock %}

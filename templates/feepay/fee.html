@@ -23,9 +23,9 @@
           <div class="card-header bg-transparent border-0 ">
             <h3 class="mb-0"><i><img src="{{ url_for('static',filename='feepay/images/info.png') }}"></i>Student Information</h3>
           </div>
-        <form action="{{ url_for('Fee_app.pay') }}" method="post">
+        <form action="{{ url_for('Fee_app.option') }}" method="post">
         <input type="hidden" value="{{ ramount }}" name='ramount'>
-          <input type="hidden" value="College Fee" name="fee-type">
+          <input type="hidden" value="{{ cat_name }}" name="fee-type">
           <div class="card-body">
             <table class="table table-bordered">
               <tr>

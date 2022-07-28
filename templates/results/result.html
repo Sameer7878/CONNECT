@@ -1,0 +1,60 @@
+{% extends 'results/home.html' %}
+{% block result %}
+   <div class="student-profile">
+              <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 w-100">
+        <div class="card shadow-sm">
+            <div class="card-header bg-transparent border-0 ">
+                <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Result</h3>
+            </div>
+            <div class="card-body">
+                <table class="table-striped table-bordered w-100 text-center">
+                    <tr>
+                        <th>Name:</th>
+                        <td>{{ res[1] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Roll No:</th>
+                        <td>{{ res[0] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Branch</th>
+                        <td>{{ res[2] }}</td>
+                    </tr>
+                     <tr>
+                        <th>Section</th>
+                        <td>{{ res[3] }}</td>
+                    </tr>
+                     <tr>
+                        <th>Semester</th>
+                        <td>{{ res[5] }}</td>
+                    </tr>
+                     <tr>
+                        <th>Whole Result</th>
+                        <td>{{ res[4] }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+                        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Detailed</h3>
+          </div>
+          <div class="card-body">
+              <table class="table-striped table-bordered w-100 text-center">
+                  {% for sub,re in sub_data.items() %}
+                  <tr>
+                      <th>{{ sub }}</th>
+                      <td>{{ re }}</td>
+                  </tr>
+                  {% endfor %}
+              </table>
+
+          </div>
+                    </div>
+
+                </div>
+              </div>
+   </div>
+{% endblock %}
