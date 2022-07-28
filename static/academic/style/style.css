@@ -75,7 +75,7 @@ header nav .cta button:last-child {margin-left: 20px;}
    color: tomato;
 }
 body {
-    height: 100vh;
+    height: auto;
     background: #ebebeb;
     background-image: linear-gradient(to bottom right,#FDFCFB,#e2d1c3);
     position: relative;
@@ -86,6 +86,7 @@ body {
 
 .student-profile .card {
     border-radius: 10px;
+
 }
 
 .student-profile .card .card-header .profile_img {
@@ -114,8 +115,7 @@ body {
     color: #000;
 }
 section{
-    padding: 50px;
-    background: #FFFFFF;
+padding: 10px;
 }
 
 
@@ -133,6 +133,7 @@ section ul {
 
 section li {
   float: left;
+    font-size: 1.5em;
 }
 
 section li a {
@@ -235,6 +236,7 @@ section .active {
 }
 
 @media (min-width: 1200px) {
+
 	.rt-container {
 		width: 1170px;
 	}
@@ -257,7 +259,20 @@ section .active {
 
 }
 
-@media only screen and (min-width:240px) and (max-width: 768px){
+@media only screen and (min-width:240px) and (max-width: 768px)
+{
+
+section{
+width:auto;}
+
+
+    table{
+        width: auto;
+    }
+    body {
+    height: 100vh;
+
+}
 	 .ScriptTop h1, .ScriptTop ul {
 		text-align: center;
 	}
@@ -288,11 +303,6 @@ h1, h2 {
   line-height: 1.2;
 }
 
-a {
-  display: inline-block;
-  text-decoration: none;
-  color: tomato;
-}
 
 
 /*ends base*/
@@ -305,3 +315,107 @@ a {
 
 
 /*ends basic*/
+
+dl .a {list-style-type: circle;
+list-style-position: outside;
+
+}
+
+hr.style-one {
+border: 0;
+height: 1px;
+background: #333;
+background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+td {
+    text-align: center;
+    border: 1px solid black;
+}
+
+#blank {
+    color: #000;
+    background-color: #fff;
+}
+
+#s {
+    font-weight: 800;
+    text-transform: lowercase;
+    font-family: sans-serif;
+    background-color: #ffffff;
+}
+
+#seminar {
+    font-weight: 800;
+    font-family: sans-serif;
+    background-color: #ffffff;
+    text-transform: uppercase;
+}
+
+#sub {
+    color: black;
+    font-family: sans-serif;
+    font-weight: 400;
+    background-color: #ffffff;
+}
+
+#sub1 {
+    background-color: #fff;
+}
+
+#sub2 {
+    color: black;
+    text-transform: uppercase;
+    background-color: #ffffff;
+}
+
+#sub3 {
+    background-color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 800;
+}
+
+#box1 {
+    color: cornflowerblue;
+    font-family: sans-serif;
+    font-weight: 800;
+}
+
+#box2 {
+    color: darkorange;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+
+#box3 {
+    color: darkviolet;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+
+#box4 {
+    color: green;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+
+#box5 {
+    color: red;
+    font-family: sans-serif;
+    font-weight: 800;
+}
+
+#box6 {
+    color: hotpink;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+
+#box7 {
+    color: blue;
+    font-family: sans-serif;
+    font-weight: 800;
+}
