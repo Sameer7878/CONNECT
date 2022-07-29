@@ -1,0 +1,31 @@
+{% extends 'pay.html' %}
+{% block paytm %}
+   <head>
+  <title>Payment</title>
+  <style type="text/css" media="screen">
+    form article label {
+      display: block;
+      margin: 5px;
+    }
+
+    form .submit {
+      margin: 15px 0;
+    }
+  </style>
+   <script>
+       function autosubmit(){
+           document.getElementById('data-form').submit();
+       }
+   </script>
+</head>
+<body onload="autosubmit()">
+  <h3>Redirecting to Paytm page.....</h3>
+    <form method="post" action="{{ url }}" id="data-form">
+        <dl>
+            {% for key, value in data.items() %}
+                <input readonly type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endfor %}
+        </dl>
+    </form>
+</body>
+{% endblock %}

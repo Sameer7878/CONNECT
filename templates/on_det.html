@@ -1,0 +1,25 @@
+{% extends 'pay.html' %}
+{% block on_del %}
+
+
+<body>
+    <br>
+    <div style="width: 50%; text-align: center; padding: 50px; margin: 20px auto;background-color: white;border-radius: 3px;box-shadow: 6px 2px 30px 0px rgba(168, 68, 102, 0.75);">
+        <div class="card card-body d-inline-block">
+        <form action="{{ url_for('Fee_app.paytm') }}" method="post">
+            <div class="form-group">
+                Enter Amount
+                <input type="number" name="amount" value="{{ amount }}" max="{{ amount }}" required>
+            </div>
+            <div class="form-group">
+                Mobile Number
+                <input type="number" name="number" maxlength="10" required>
+            </div>
+            <div class="form-group pt-3">
+            <input type="submit" value="Pay" class="btn-outline-success">
+            </div>
+        </form>
+        </div>
+    </div>
+</body>
+{% endblock %}
