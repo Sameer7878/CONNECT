@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
-
 header {
   width: 100%;
   height: auto;
@@ -127,7 +126,7 @@ section ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: none;
+
   background-color: #ffffff;
 }
 
@@ -455,4 +454,7 @@ styled-table thead tr {
 .styled-table tbody tr.active-row {
     font-weight: bold;
     color: #009879;
+}
+td{
+    text-align: left;
 }
