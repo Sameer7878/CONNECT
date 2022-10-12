@@ -20,7 +20,7 @@ body{
   background: #ebebeb;
 	background-image: linear-gradient(to right bottom, #f3cfcf, #cec2ba);
   	z-index: 1;
-	padding-top:100px;
+	padding-top: 50px;
 	overflow: scroll;
 }
 a {
@@ -35,14 +35,11 @@ a {
   margin: 0 auto;
 }
 header {
-  width: 100%;
-  height: auto;
-  padding: 50px 0 30px 0;
-  position: absolute;
+
   left: 0;
   right: 0;
   top: 0;
-  z-index: 5;
+  z-index: 1;
 }
 
 header .container1 {

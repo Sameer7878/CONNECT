@@ -59,41 +59,6 @@
     </style>
   </head>
   <body>
- <!-- <header>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-          <div class="logo" ><h2><span></span>CONNECT CANTEEN</h2></div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul  class="navbar-nav mr-auto">
-        </ul>
-        <div class="form-inline my-2 my-lg-0">
-            {% if user %}
-          <span class ='msg'>Hello,{{ name }} </span>
-          <a href="{{ url_for('Fee_app.pay',amount=200,fee_name='Canteen')}}" class="butn my-2 my-sm-0">Wallet
-          <span style="border: tomato solid 2px; border-radius: 10px; padding: 2px;">{{ wallet_bal }}</span></a>
-                <a href="{{ url_for('canteen.cart') }}">
-            <img id="cart-icon" alt="Cart_Icon" src="../../static/canteen/images/cart.png" />
-          </a>
-          <p id="cart-total">0</p>
-          <a href="{{ url_for('Fee_app.signout') }}" class="my-2 my-sm-0">Sign Out</a>
-              {% else %}
-            <a href="{{ url_for('Fee_app.signout') }}" class="my-2 my-sm-0">Sign Out</a>
-            {% endif %}
-        </div>
-      </div>
-    </nav>
-  </header>-->
  <header>
       <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container1">
@@ -113,7 +78,7 @@
         <ul>
             {% if user %}
             <li><a class="name" href="#"> Hello,{{ name }} </a></li>
-            <li><a href="{{ url_for('Fee_app.pay',amount=200,fee_name='Canteen')}}">Wallet
+            <li><a href="{{ url_for('Fee_app.option',amount=200,fee_name='Canteen')}}">Wallet
             <span style="border: tomato solid 2px; border-radius: 10px; padding: 2px;">{{ wallet_bal }}</span></a></li>
             <li><div class="form-inline">
                 <a href="{{ url_for('canteen.cart') }}">
@@ -200,7 +165,7 @@
         <ul>
             {% if user %}
             <li><a class="name" href="#"> Hello,{{ name }} </a></li>
-            <li><a href="{{ url_for('Fee_app.pay',amount=200,fee_name='Canteen')}}">Wallet
+            <li><a href="{{ url_for('Fee_app.option',amount=200,fee_name='Canteen')}}">Wallet
             <span style="border: tomato solid 2px; border-radius: 10px; padding: 2px;">{{ wallet_bal }}</span></a></li>
             <li><div class="form-inline">
                 <a href="{{ url_for('canteen.cart') }}">

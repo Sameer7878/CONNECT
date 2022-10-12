@@ -9,17 +9,18 @@
     <link rel="stylesheet" type="text/css"  href="/static/result/style.css>
 <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
 <link rel="manifest" href="/static/favicon_io/site.webmanifest">
+    <link rel="stylesheet" type="text/css" href="../../static/results/css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
 </head>
 <header>
-    <div class="container">
+    <div class="container1">
         <div class="logo" ><h2 onclick="location.href='{{ url_for('home.index') }}'"><span></span>CONNECT RESULTS</h2></div>
         <nav class="slide">
         <ul>
-            <li><a class="name" href="#"> Hello,{{ name }} </a></li>
+            <li><a class="name" href="#"> Hello,{{ res[1] }} </a></li>
            <li><a href="{{ url_for('Fee_app.signout') }}">Sign Out</a></li>
         </ul>
     </nav>

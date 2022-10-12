@@ -1,0 +1,46 @@
+{% extends 'admin/admin.html' %}
+{% block set_due %}
+
+
+<body>
+    <br>
+    <div style="width: 700px;margin: 20px auto;background-color: white;border-radius: 3px;box-shadow: 6px 2px 30px 0px rgba(168, 68, 102, 0.75);">
+        <div class="card card-body">
+            <form  action="{{ url_for('admin.add_due') }}" method="post">
+                <div class="form-group">
+                    Year
+                    <select name="year" class="form-control" required id="id_class">
+                        <option value="I">First Year</option>
+                        <option value="II">Second Year</option>
+                        <option value="III">Third Year</option>
+                        <option value="IV">Fourth Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Category
+                    <select name="category" class="form-control" required id="id_branch">
+                        <option value="COLLEGE_FEE" selected>Tuition Fee</option>
+                        <option value="BUS_FEE">Bus Fee</option>
+                        <option value="EXAM_FEE">Exam Fee</option>
+                        <option value="HOSTEL_FEE">Hostel Fee</option>
+                        <option value="OTHER_FEE">Other Fee</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Enter Fee
+                    <input type="number" name="fee"  class="form-control" id="id_clg">
+                </div>
+                <hr>
+                <input class="btn btn-sm btn-success" type="submit" name="submit">
+            </form>
+        </div>
+    </div>
+</body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert('{{ message }}')</script>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}

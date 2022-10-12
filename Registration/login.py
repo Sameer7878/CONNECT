@@ -24,6 +24,7 @@ def verify():
         username=username+'@NBKRIST.ORG'
         password = request.form['password']
         try:
+            print('1')
             con =sql.connect(
                     host="127.0.0.1",
                     user="root",
@@ -32,6 +33,7 @@ def verify():
 
                             )
             cur = con.cursor()
+            print('database not connected')
             cur.execute('SELECT * FROM LOGIN WHERE USERNAME="%s" AND PASSWORD="%s";' % (username,password))
             login_data = cur.fetchone()
             print(login_data)
@@ -57,6 +59,8 @@ def verify():
                 print(referrer)
                 return redirect(url_for('home.index'))
 
-        except:
+        except Exception as e:
+            print(e)
+            print('erroor')
             return abort(401)
     return abort(404)

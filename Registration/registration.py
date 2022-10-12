@@ -1703,17 +1703,22 @@ def upload_data():
         file=request.files['file']
         pasw=request.form['passw']
         gend=request.form['gender']
-        filename = str(roll) + '.jpeg'
-        file.save(os.path.join(UPLOAD_FOLDER, filename))
-        con = sql.connect(
+        con=sql.connect(
             host="127.0.0.1",
             user="root",
             password="password",
             database="MINI_PROJECT"
 
         )
-        cur = con.cursor()
-        cur.execute('INSERT INTO STUDENT_REG(ROLLNO,MAIL_ID,NAME,PROFILE_LINK,password,GENDER) VALUES("%s","%s","%s","%s","%s","%s")'%(roll.upper(),mailid,name,filename,pasw,gend))
-        con.commit()
-        con.commit()
+        cur=con.cursor()
+        if file:
+            filename = str(roll) + '.jpeg'
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            cur.execute('INSERT INTO STUDENT_REG(ROLLNO,MAIL_ID,NAME,PROFILE_LINK,password,GENDER) VALUES("%s","%s","%s","%s","%s","%s")'%(roll.upper(),mailid,name,filename,pasw,gend))
+            con.commit()
+        else:
+            cur.execute(
+                'INSERT INTO STUDENT_REG(ROLLNO,MAIL_ID,NAME,password,GENDER) VALUES("%s","%s","%s","%s","%s")' % (roll.upper(), mailid, name, pasw, gend))
+            con.commit()
+        con.close()
         return redirect(url_for('home.index'))

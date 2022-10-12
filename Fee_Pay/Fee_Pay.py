@@ -331,13 +331,17 @@ def other_fee():
                            profile_link=profile_link)
 
 
-@Fee_app.route('/Pay_Options/',methods=['POST'])
+@Fee_app.route('/Pay_Options/',methods=['POST','GET'])
 def option():
     if not session.get('name'):
         return redirect(url_for('login.login1'))
     if request.method == 'POST':
         option.amount=request.form['ramount']
         option.fee_name=request.form['fee-type']
+        option.date1=date.today()
+    else:
+        option.amount=request.args.get('amount')
+        option.fee_name=request.args.get('fee_name')
         option.date1=date.today()
     return render_template('options.html')
 @Fee_app.route('/manual_pay/',methods=["GET","POST"])
@@ -409,6 +413,7 @@ def sel_amount():
     return render_template('on_det.html',amount=option.amount)
 @Fee_app.route("/paytm/",methods=["POST","GET"])
 def paytm():
+    roll_no=session.get('name')
     con=sql.connect(
         host="127.0.0.1",
         user="root",

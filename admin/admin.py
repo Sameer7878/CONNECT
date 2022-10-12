@@ -177,6 +177,7 @@ def accepted():
     cur.execute("SELECT STATUS.ROWID, STUDENT_INFO.NAME,STUDENT_INFO.ROLLNO,STUDENT_INFO.CLASS,STATUS.AMOUNT,STATUS.UTR_NO, STATUS.CATEGORY,STATUS.DATE,STATUS.STATUS,STATUS.PROOF_LINK FROM STATUS INNER JOIN STUDENT_INFO ON STATUS.ROLLNO=STUDENT_INFO.ROLLNO WHERE STATUS.STATUS=1 and STATUS.ADMIN_TYPE=0;")
     data = cur.fetchall()
     con.close()
+    print(data)
     return render_template('admin/fee_admin.html', status1=data)
 
 @admin.route('/rejected/')
@@ -265,3 +266,39 @@ def update_det():
         con.commit()
         con.close()
         return redirect(url_for('admin.stureg'))
+@admin.route('/view_Dues/')
+def view_due():
+    con=sql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="password",
+        database="MINI_PROJECT"
+
+    )
+    cur=con.cursor()
+    cur.execute('SELECT STUDENT_INFO.ROLLNO, STUDENT_INFO.NAME,STUDENT_INFO.ACADEMIC,STUDENT_INFO.CLASS,STUDENT_INFO.SECTION,COLLEGE_FEE.DUE_AMOUNT,EXAM_FEE.DUE_AMOUNT,BUS_FEE.DUE_AMOUNT,HOSTEL_FEE.DUE_AMOUNT,OTHER_FEE.DUE_AMOUNT FROM STUDENT_INFO INNER JOIN COLLEGE_FEE ON STUDENT_INFO.ROLLNO=COLLEGE_FEE.ROLLNO INNER JOIN BUS_FEE ON STUDENT_INFO.ROLLNO=BUS_FEE.ROLLNO INNER JOIN EXAM_FEE ON STUDENT_INFO.ROLLNO=EXAM_FEE.ROLLNO INNER JOIN HOSTEL_FEE ON STUDENT_INFO.ROLLNO=HOSTEL_FEE.ROLLNO INNER JOIN OTHER_FEE ON STUDENT_INFO.ROLLNO=OTHER_FEE.ROLLNO')
+    due_data=cur.fetchall()
+    print(due_data)
+    return render_template('admin/view_dues.html',duedata=due_data)
+@admin.route('/set_due/')
+def set_due():
+    return render_template('admin/set_dues.html')
+@admin.route('/add_due/',methods=['POST','GET'])
+def add_due():
+    if request.method=="POST":
+        year=request.form['year']
+        cat=request.form['category']
+        due_amount=request.form['fee']
+        con=sql.connect(
+            host="127.0.0.1",
+            user="root",
+            password="password",
+            database="MINI_PROJECT"
+
+        )
+        cur=con.cursor()
+        cur.execute(f'UPDATE {cat} SET DUE_AMOUNT="%s" WHERE ROLLNO IN (SELECT ROLLNO FROM STUDENT_INFO WHERE ACADEMIC="%s")'%(due_amount,year))
+        con.commit()
+        con.close()
+        flash('Updated Successfully')
+        return redirect(url_for('admin.set_due'))
